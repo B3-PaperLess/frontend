@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   name: 'HelloWorld',
   props: {
@@ -20,8 +21,10 @@ export default {
 
   },
   methods: {
-    Test() {
-      console.log("test")
+    ...mapActions(["firstRequest"]),
+    async Test() {
+      await this.firstRequest({ id: "1", test: "test" })
+      //console.log("test")
     }
   }
 }

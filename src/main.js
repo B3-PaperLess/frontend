@@ -2,6 +2,8 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import '@mdi/font/css/materialdesignicons.css';
 
+import store from './store/store.js';
+
 // Vuetify
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
@@ -13,4 +15,7 @@ const vuetify = createVuetify({
   directives,
 })
 
-createApp(App).use(vuetify).mount('#app')
+const app = createApp(App);
+app.use(store);
+app.use(vuetify);
+app.mount('#app');
