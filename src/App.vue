@@ -1,26 +1,57 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="flex flex-col min-h-screen w-full">
+    <header class="w-full">
+      <header-app class=""></header-app>
+    </header>
+
+    <main class="flex-grow w-full h-full bg-cream">
+      <router-view></router-view>
+    </main>
+
+    <footer class="w-full">
+      <footer-app class=""></footer-app>
+    </footer>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HeaderApp from './components/HeaderApp.vue'
+import FooterApp from './components/FooterApp.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HeaderApp,
+    FooterApp
+  },
+  created() {
+    console.log(this.$router)
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+div{
+   color: rebeccapurple;
+  font-size: 30px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
+
+header-app {
+  flex-grow: 0;
+}
+
+.content {
+ flex-grow: 1;
+}
+
+footer-app {
+  flex-grow: 0;
+}
+
 </style>
