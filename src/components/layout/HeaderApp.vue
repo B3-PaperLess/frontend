@@ -1,14 +1,14 @@
 <template>
-  <div class="flex flex-row justify-between align-middle w-full py-2 px-6 bg-base-lg">
+  <div class="flex flex-row justify-between align-middle w-full px-6 bg-base-lg h-10">
     <div class="flex items-start align-middle h-fit">
       <router-link :to="{name: 'index'}">
-        <mini-logo></mini-logo>
+        <mini-logo class="w-16"></mini-logo>
       </router-link>
     </div>
 
     <div class="flex items-end">
       <router-link :to="{name: 'connexion'}">
-        <v-avatar :image="srcImage" size="75"/>
+        <v-avatar :image="srcImage" size="30"/>
       </router-link>
     </div>
   </div>

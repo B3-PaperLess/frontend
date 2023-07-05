@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col min-h-screen w-full">
     <header class="w-full">
-      <header-app class=""></header-app>
+      <header-app></header-app>
     </header>
 
     <main class="flex-grow w-full h-full bg-cream">
@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import HeaderApp from './components/HeaderApp.vue'
-import FooterApp from './components/FooterApp.vue'
+import HeaderApp from './components/layout/HeaderApp.vue'
+import FooterApp from './components/layout/FooterApp.vue'
 
 export default {
   name: 'App',
@@ -32,7 +32,6 @@ export default {
 
 <style>
 div{
-   color: rebeccapurple;
   font-size: 30px;
   width: 100%;
   height: 100%;
@@ -42,16 +41,8 @@ div{
   justify-content: center;
 }
 
-header-app {
-  flex-grow: 0;
-}
 
-.content {
- flex-grow: 1;
-}
 
-footer-app {
-  flex-grow: 0;
-}
+
 
 </style>
