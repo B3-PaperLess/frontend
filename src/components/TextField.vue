@@ -1,15 +1,21 @@
 <template>
-  <div class="w-fit h-fit">
+  <div class="">
     <div class="flex align-start justify-start text-sm text-gray-600">
-      <slot name="label"></slot>
+      <slot v-if="label.length === 0"></slot>
+
+      <div v-else class="text-xs flex align-start">
+        {{label}}
+      </div>
     </div>
 
-    <div :class="[isError ? 'border-[0.06em] border-red-300' : isInputFocused ? 'border-[0.06em] border-gray-400' : 'border-[0.04em] border-gray-400']" class="rounded">
+    <div :class="[isError ? 'border-[0.06em] border-red-300' : isInputFocused ? 'border-[0.06em] border-gray-400' : 'border-[0.04em] border-gray-400']"
+         class="rounded"
+    >
       <input type="text"
              v-model="value"
-             class="rounded pl-3"
+             class="rounded pl-3 text-sm w-full "
              :placeholder="placeholder"
-             :style="{background:color}"
+             :style="{background:color, height: height + 'em'}"
              @focus="onInputFocus"
              @blur="onInputBlur"
       />
@@ -32,6 +38,11 @@ const props = defineProps({
     required: false,
     default:''
   },
+  label: {
+    type:String,
+    required: false,
+    default:''
+  },
   color:{
     type:String,
     required: false,
@@ -41,6 +52,12 @@ const props = defineProps({
     type:String,
     required: false,
     default:''
+  },
+
+  height: {
+    type:Number,
+    default:2.5,
+    required: false
   }
 })
 

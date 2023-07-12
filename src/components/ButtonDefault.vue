@@ -1,15 +1,16 @@
 <template>
-  <div>
-    <component :is="'button'" class="h-full w-full"
-               @click="onClick($event)">
-      <slot></slot>
-    </component>
-  </div>
+  <component :is="'button'"
+             :style="{background:background}"
+             class="rounded shadow"
+             @click="onClick($event)">
+    <slot></slot>
+  </component>
 </template>
 
 <script>
 export default {
   name: "ButtonDefault",
+  emits:['click'],
   data: () => ({
     hovered: false,
   }),
@@ -22,13 +23,23 @@ export default {
     width: {
       type: Number,
       required: false,
-      default: 5
+      default: 3
     },
     height: {
       type: Number,
       required: false,
-      default: 1
+      default: 0.8
     },
+    background: {
+      type: String,
+      default:'#f3ecc1',
+      required: false
+    },
+    label: {
+      type: String,
+      default:'click',
+      required: false
+    }
   },
   methods: {
     onClick(event) {

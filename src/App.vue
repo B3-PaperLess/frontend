@@ -9,7 +9,7 @@
     </main>
 
     <footer class="w-full">
-      <footer-app class=""></footer-app>
+      <footer-app></footer-app>
     </footer>
   </div>
 </template>
@@ -17,7 +17,7 @@
 <script>
 import HeaderApp from './components/layout/HeaderApp.vue'
 import FooterApp from './components/layout/FooterApp.vue'
-
+import axios from './axiosConfig'
 export default {
   name: 'App',
   components: {
@@ -25,24 +25,13 @@ export default {
     FooterApp
   },
   created() {
-    console.log(this.$router)
+      axios.get('').then((res) => {
+        console.log(res)
+      })
   }
 }
 </script>
 
-<style>
-div{
-  font-size: 30px;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-
-
-
+<style scoped>
 
 </style>

@@ -1,13 +1,13 @@
 <template>
-<div class="">
-  <div class="mt-4">
-    <img src="@/assets/image/logo.png" alt="logo" class="w-2/3"/>
+<div class="flex flex-col items-center">
+  <div class="mt-4 w-fit">
+    <img src="@/assets/image/logo.png" alt="logo" class="w-fit"/>
   </div>
 
   <div class="mt-12 flex flex-row justify-center gap-x-12">
     <card-home class="rounded-3xl">
       <template v-slot:title>
-        Je suis le title
+        Avantage
       </template>
 
       <template v-slot:content>
@@ -29,8 +29,6 @@
       </template>
     </card-home>
 
-    val :{{val}}
-    <radio-fields v-model="val" :items="items"></radio-fields>
   </div>
 </div>
 </template>

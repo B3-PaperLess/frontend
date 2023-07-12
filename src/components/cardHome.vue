@@ -1,14 +1,14 @@
 <template>
-  <card-default :height="height" :width="width" :background="background" :class="classes" class="px-6 py-4">
-    <div class="h-12  mt-2">
+  <card-default :background="background" :class="classes" class="px-6 py-4">
+    <div class="text-xl flex justify-center">
       <slot name="title"></slot>
     </div>
 
-    <div class="text-base flex align-start justify-start mt-10 px-4">
+    <div class="text-base">
       <slot name="content"></slot>
     </div>
 
-    <div class="flex justify-end">
+    <div>
       <slot name="button"></slot>
     </div>
   </card-default>
@@ -20,16 +20,6 @@ export default {
   name: "cardHome",
   components:{CardDefault},
   props: {
-    height: {
-      type: Number,
-      required:false,
-      default:10
-    },
-    width: {
-      type: Number,
-      required:false,
-      default:10
-    },
     classes: {
       type:String,
       required:false,

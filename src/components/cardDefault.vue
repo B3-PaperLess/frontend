@@ -1,5 +1,5 @@
 <template>
-  <div :class="classes" :style="{width: width + 'em', height: height + 'em', background: background}">
+  <div :class="classes" :style="{background: background}">
     <slot></slot>
   </div>
 </template>
@@ -8,16 +8,7 @@
 export default {
   name: "CardDefault",
   props: {
-    height: {
-      type: Number,
-      required:false,
-      default:10
-    },
-    width: {
-      type: Number,
-      required:false,
-      default:10
-    },
+
     classes: {
       type:String,
       required:false,
