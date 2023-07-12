@@ -17,18 +17,13 @@
 <script>
 import HeaderApp from './components/layout/HeaderApp.vue'
 import FooterApp from './components/layout/FooterApp.vue'
-import axios from './axiosConfig'
+
 export default {
   name: 'App',
   components: {
     HeaderApp,
     FooterApp
   },
-  created() {
-      axios.get('').then((res) => {
-        console.log(res)
-      })
-  }
 }
 </script>
 
