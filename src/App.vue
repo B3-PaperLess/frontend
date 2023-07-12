@@ -24,11 +24,11 @@ export default {
     HeaderApp,
     FooterApp
   },
-  created() {
-      axios.get('').then((res) => {
-        console.log(res)
-      })
-  }
+  // created() {
+  //     axios.get('').then((res) => {
+  //       console.log(res)
+  //     })
+  // }
 }
 </script>
 
