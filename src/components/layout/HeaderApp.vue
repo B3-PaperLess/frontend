@@ -6,8 +6,12 @@
       </router-link>
     </div>
 
-    <button-default v-if="isConnected" @click="$router.push({name: 'home'})">
-      Nom
+    <div v-if="user.isLogged">
+      Bonjour {{ user.nom }}   {{user.prenom}}
+    </div>
+
+    <button-default v-if="user.isLogged" @click="logout">
+      Deconnexion
     </button-default>
 
     <button-default v-else class="px-2 my-2" @click="$router.push({name: 'connexion'})">
@@ -16,22 +20,28 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import MiniLogo from '@/components/icons/MiniLogo.vue'
 import ButtonDefault from "@/components/ButtonDefault.vue";
+import {ref} from "vue";
+import useUserStore from '@/store/user'
+
+
+const srcImage = ref(require("@/assets/image/offline.png"))
+const user = useUserStore.getters.getUser
+
+
+function logout() {
+  useUserStore.dispatch('logout')
+}
+</script>
+
+<script>
 
 
 export default {
   name: "HeaderApp",
-  components: {
-    ButtonDefault,
-    MiniLogo
-  },
   data() {
-    return {
-      srcImage: require("@/assets/image/offline.png"),
-      isConnected: false,
-    }
   }
 }
 </script>

@@ -22,14 +22,14 @@
             <text-field  class="w-48" label="Nom" v-model="userInscription.nom"></text-field>
             <text-field  class="w-48" label="Prenom" v-model="userInscription.prenom"></text-field>
             <text-field class="w-48" label="Email" v-model="userInscription.email"></text-field>
-            <text-field  class="w-48" label="N° de téléphone" v-model="userInscription.numeroTel"></text-field>
+            <text-field  class="w-48" label="N° de téléphone" v-model="userInscription.num_tel"></text-field>
           </div>
 
           <text-field class="mt-12" label="Mot de passe" v-model="userInscription.password"></text-field>
           <text-field label="Confirmation mot de passe" v-model="userInscription.passwordAgain"></text-field>
         </div>
         <div class="flex flex-col gap-y-4 w-full">
-          <text-field label="Raison social" v-model="entreprise.nom"></text-field>
+          <text-field label="Raison social" v-model="entreprise.raison_social"></text-field>
           <text-field label="SIRET" v-model="entreprise.siret"></text-field>
           <text-field label="Ville" v-model="entreprise.ville"></text-field>
           <text-field label="Adresse" v-model="entreprise.adresse"></text-field>
@@ -39,7 +39,7 @@
       </div>
     </div>
   </div>
-
+  {{useUserStore.state}}
   <div class="w-full">
     <div>
       <div class="text-center text-3xl">
@@ -66,10 +66,11 @@ import TextField from "@/components/TextField.vue";
 import {ref} from "vue";
 import ButtonDefault from "@/components/ButtonDefault.vue";
 import axios from '@/axiosConfig'
+import useUserStore from '@/store/user'
 
 let entreprise = ref({
     siret: '',
-    nom: '',
+    raison_social: '',
     adresse: '',
     ville: '',
 })
@@ -77,28 +78,32 @@ let userInscription = ref({
     nom: '',
     prenom: '',
     email: '',
-    numeroTel:'',
+    num_tel:'',
     password:'',
     passwordAgain:''
 })
 
 let user = ref({
-    email: '',
-    password:''
+    email: 'tsauvage@',
+    password:'mdp'
 })
 
 function inscription() {
-  let data = {
+  axios.post('paperless/entreprise/', {
     ...userInscription.value,
-  }
-
-  axios.post('paperless/user')
+    ...entreprise.value
+  }).then((res) => {
+    console.log(res)
+  })
 }
 
 function connexion() {
-
+  axios.post('paperless/connect/', {...user.value}).then(({data}) => {
+    if (data) {
+      useUserStore.dispatch('initUser', data);
+    }
+  })
 }
-
 
 </script>
 
