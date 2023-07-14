@@ -66,7 +66,12 @@ import TextField from "@/components/TextField.vue";
 import {ref} from "vue";
 import ButtonDefault from "@/components/ButtonDefault.vue";
 import axios from '@/axiosConfig'
+import {useRouter} from "vue-router";
 import useUserStore from '@/store/user'
+import useEntrepriseStore from '@/store/entreprise'
+
+
+const router = useRouter()
 
 let entreprise = ref({
     siret: '',
@@ -89,7 +94,7 @@ let user = ref({
 })
 
 function inscription() {
-  axios.post('paperless/entreprise/', {
+  axios.post('paperless/signup', {
     ...userInscription.value,
     ...entreprise.value
   }).then((res) => {
@@ -98,9 +103,11 @@ function inscription() {
 }
 
 function connexion() {
-  axios.post('paperless/connect/', {...user.value}).then(({data}) => {
+  axios.post('paperless/connect', {...user.value}).then(({data}) => {
     if (data) {
       useUserStore.dispatch('initUser', data);
+      useEntrepriseStore.dispatch('initEntreprise', data.user.entreprise);
+      router.push({name: 'home'})
     }
   })
 }

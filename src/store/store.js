@@ -13,8 +13,6 @@ const store = createStore({
   actions: {
     // Actions pour effectuer des opérations asynchrones
     async firstRequest(_, {id, test}) {
-      console.log(id);
-      console.log(test);
       await axios.post('/test/', { id: id, test: test })
     }
   },
