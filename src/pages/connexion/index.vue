@@ -103,7 +103,8 @@ function inscription() {
 }
 
 function connexion() {
-  axios.post('paperless/connect', {...user.value}).then(({data}) => {
+  axios.post('paperless/connect',
+      {...user.value}).then(({data}) => {
     if (data) {
       useUserStore.dispatch('initUser', data);
       useEntrepriseStore.dispatch('initEntreprise', data.user.entreprise);
