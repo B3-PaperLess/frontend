@@ -55,8 +55,18 @@ function handleUpload(e) {
 }
 
 function sendFiles() {
-  console.log('send', listFilesUploaded.value)
-  axios.post('paperless/test', {files: listFilesUploaded.value}).then(({data}) => {
+  let formData = new FormData();
+  listFilesUploaded.value.forEach((file) => {
+    formData.append('file', file);
+  })
+  console.log(listFilesUploaded.value.length)
+  axios.post('paperless/test',
+      {files: listFilesUploaded.value},
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(({data}) => {
     console.log(data)
   })
 }

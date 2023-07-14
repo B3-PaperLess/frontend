@@ -40,7 +40,7 @@ const entreprise = createStore({
     },
     actions: {
         initEntreprise(context, id) {
-            axios.get('paperless/entreprise?id=' + id).then(({data}) => {
+            axios.get('paperless/entreprise?id=' + id, {withCredentials:true}).then(({data}) => {
                 console.log(data)
                 const value = {
                     nom:data.entreprise.nom,
