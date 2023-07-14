@@ -11,11 +11,11 @@
     </div>
 
     <button-default v-if="user.isLogged" @click="logout">
-      Deconnexion
+      Déconnexion
     </button-default>
 
     <button-default v-else class="px-2 my-2" @click="$router.push({name: 'connexion'})">
-      connexion
+      Connexion
     </button-default>
   </div>
 </template>
