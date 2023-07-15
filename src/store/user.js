@@ -1,7 +1,7 @@
 import { createStore } from "vuex";
-import store from "@/store/store";
 import axios from "@/axiosConfig";
 import Cookies from 'js-cookie';
+import useEntrepriseStore from '@/store/entreprise'
 
 const user = createStore({
     state() {
@@ -11,6 +11,7 @@ const user = createStore({
             email:'',
             tel:'',
             token:'',
+            isAdmin: false,
             isLoggedIn:false
         };
     },
@@ -20,6 +21,7 @@ const user = createStore({
             state.prenom = user.prenom;
             state.email = user.email;
             state.tel = user.num_tel;
+            state.isAdmin = user.is_admin;
         },
         login(state) {
             state.isLogged = true;
@@ -29,6 +31,7 @@ const user = createStore({
             state.prenom = '';
             state.email = '';
             state.tel = '';
+            state.isAdmin = false;
             state.isLogged = false;
         }
     },
@@ -36,12 +39,24 @@ const user = createStore({
         initUser(context, data) {
             Cookies.set('token', data.token);
             context.commit('updateUser', data.user);
-            context.commit('login', data.user);
+
+            context.commit('login');
+        },
+        async initApplication(context) {
+            const token = Cookies.get('token')
+
+            if (token?.length > 0) {
+                axios.get('paperless/me').then(({data}) => {
+                    context.commit('updateUser', data);
+                    context.commit('login');
+                    useEntrepriseStore.dispatch('initEntreprise', data.entreprise)
+                })
+            }
         },
         logout(context) {
             context.commit('logout')
             Cookies.remove('token');
-        }
+        },
     },
     getters: {
         getUser(state) {
