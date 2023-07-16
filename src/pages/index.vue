@@ -23,7 +23,7 @@
 
         <template v-slot:button>
           <button-default class="w-1/2 mt-5">
-            <router-link to="/register">
+            <router-link to="/connexion">
               Créer un compte
             </router-link>
           </button-default>
