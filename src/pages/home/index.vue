@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-3 px-24">
+  <div class="grid grid-cols-3 px-24" v-if="!loading">
     <div class="mt-4 w-fit px-12 col-span-1">
       <img src="@/assets/image/logo.png" alt="logo" class="w-fit"/>
       <card-home class="w-full mx-2 mt-10">
@@ -46,6 +46,7 @@
         <datatable
             :headers="headers"
             :items="items"
+            :keys="keys"
         >
         </datatable>
       </div>
@@ -61,30 +62,79 @@
   import ButtonDefault from "@/components/ButtonDefault.vue";
   import cardHome from "@/components/cardHome.vue"
   import useEntrepriseStore from "../../store/entreprise";
-  
+
   export default {
     name: "indexApp",
     components: {ButtonDefault, ModalFacture, datatable, cardHome },
     data() {
       return {
+        loading:true,
         entreprise: null,
+        factures: [],
         showModalFacture: false,
         showModalUpdateEntreprise: false,
         val: null,
         headers: [
+          "Document",
           "Utilisateur",
-          "Lieu",
-          "Etat"
+          "date",
+          "taille",
+          "etat"
         ],
-        items: [
-          { name: 'John Doe', location: "12 rue mes couilles", state: 'john@example.com' },
-          { name: 'Jane Smith', location: "12 rue mes couilles", state: 'jane@example.com' },
-          { name: 'Bob Johnson', location: "12 rue mes couilles", state: 'bob@example.com' },
-        ]
+        items:[],
+        keys: ['nom','user', 'date', 'taille', 'state'],
       }
     },
     created() {
       this.entreprise = useEntrepriseStore.getters.getEntreprise
+      this.loadFactures()
+    },
+    methods: {
+      loadFactures() {
+        this.loading = true
+        useEntrepriseStore.dispatch('getFactures').then(() => {
+          this.entreprise = useEntrepriseStore.getters.getEntreprise
+          this.loading = false
+        })
+      },
+      formattedSize(sizeInBytes) {
+        const kiloByte = 1024;
+        const megaByte = kiloByte * 1024;
+
+        if (sizeInBytes >= megaByte) {
+          return (sizeInBytes / megaByte).toFixed(2) + ' Mo';
+        } else if (sizeInBytes >= kiloByte) {
+          return (sizeInBytes / kiloByte).toFixed(2) + ' Ko';
+        } else {
+          return sizeInBytes + ' octets';
+        }
+      }
+    },
+    watch: {
+      entreprise:{
+        handler() {
+          if (this.entreprise.factures !== this.factures) {
+            this.factures = this.entreprise.factures
+          }
+        }, deep:true
+      },
+      factures: {
+        handler() {
+          this.items = []
+          this.factures.forEach((facture) => {
+            this.items.push({
+              user: facture.user.nom + ' ' + facture.user.prenom,
+              nom: facture.nom,
+              taille: this.formattedSize(facture.taille),
+              state: facture.state,
+              date: facture.date
+            })
+          })
+        },deep:true
+      },
+      showModalFacture() {
+        this.loadFactures()
+      }
     }
   }
   </script>

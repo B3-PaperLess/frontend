@@ -10,6 +10,7 @@ const entreprise = createStore({
             adresse:'',
             ville:'',
             users: [],
+            factures: [],
             admin: {
                 nom:'',
                 prenom:'',
@@ -29,8 +30,14 @@ const entreprise = createStore({
         setUsers(state, users) {
             state.users = users
         },
+        setFactures(state, factures) {
+          state.factures = factures
+        },
         addUser(state, user) {
           state.users.push(user)
+        },
+        addFacture(state, facture) {
+          state.factures.push(facture)
         },
         logout(state) {
             state.nom = ''
@@ -38,6 +45,8 @@ const entreprise = createStore({
             state.ville = ''
             state.adresse = ''
             state.siret = ''
+            state.factures = []
+            state.users = []
             state.admin = {
                 nom:'',
                 prenom:'',
@@ -94,6 +103,11 @@ const entreprise = createStore({
                 context.commit('setUsers', data.users)
             }).catch((e) => {
                 console.error(e)
+            })
+        },
+        getFactures(context) {
+            axios.get('paperless/entreprise-factures').then(({data}) => {
+                context.commit('setFactures', data.factures)
             })
         }
     },
