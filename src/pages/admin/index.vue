@@ -11,13 +11,11 @@
       </div>
 
       <div class=" flex flex-col mt-8 gap-y-4">
-        <text-field label="Siret" v-model="entreprise.siret"></text-field>
-        <text-field label="Raison sociale" v-model="entreprise.nom"></text-field>
-        <text-field label="Ville" v-model="entreprise.ville"></text-field>
-        <text-field label="Adresse" v-model="entreprise.adresse"></text-field>
 
-        <button-default @click="updateInformation">Valider informations</button-default>
+        <button-default @click="showModalUpdateEntreprise = true">Modifier informations</button-default>
       </div>
+
+      <modal-update-entreprise v-model="showModalUpdateEntreprise"></modal-update-entreprise>
     </div>
 
     <div class="w-full">
@@ -54,11 +52,12 @@ import ButtonDefault from "@/components/ButtonDefault.vue";
 import {onMounted, ref} from "vue";
 import ModalUser from "@/pages/admin/components/modalUser.vue";
 import Datatable from "@/components/datatable.vue";
+import ModalUpdateEntreprise from "@/pages/admin/components/modalUpdateEntreprise.vue";
 
 
 const entreprise = ref(useEntrepriseStore.getters.getEntreprise)
 let showModalUser = ref(false)
-
+let showModalUpdateEntreprise = ref(false)
 
 
 onMounted(() => {
