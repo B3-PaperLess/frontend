@@ -1,13 +1,17 @@
 <template>
   <div class="flex flex-row justify-between align-middle w-full pl-6 pr-2 bg-base-lg h-16">
     <div class="flex items-start align-middle h-fit mt-2">
-      <router-link :to="{name: 'index'}">
+      <router-link v-if="!user.isLogged" :to="{name: 'index'}">
         <mini-logo class="w-32"></mini-logo>
+      </router-link>
+
+      <router-link v-else :to="{name: 'home'}">
+      <mini-logo class="w-32"></mini-logo>
       </router-link>
     </div>
 
     <div v-if="user.isLogged">
-      Bonjour {{ user.nom }}   {{user.prenom}} {{user}}
+      Bonjour {{ user.nom }}   {{user.prenom}}
     </div>
 
     <div class="flex gap-x-12 my-2">
