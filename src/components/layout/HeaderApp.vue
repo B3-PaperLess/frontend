@@ -7,7 +7,7 @@
     </div>
 
     <div v-if="user.isLogged">
-      Bonjour {{ user.nom }}   {{user.prenom}} {{user}}
+      Bonjour {{user.prenom}} {{ user.nom }}   
     </div>
 
     <div class="flex gap-x-12 my-2">
