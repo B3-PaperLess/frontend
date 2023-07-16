@@ -11,28 +11,36 @@
     <div :class="[isError ? 'border-[0.06em] border-red-300' : isInputFocused ? 'border-[0.06em] border-gray-400' : 'border-[0.04em] border-gray-400']"
          class="rounded"
     >
-      <input :type="type"
+      <input
              v-model="value"
              class="rounded pl-3 text-sm w-full "
              :placeholder="placeholder"
              :style="{background:color, height: height + 'em'}"
              @focus="onInputFocus"
              @blur="onInputBlur"
+             :name="vid"
+             :type="type"
+             :rules="rules"
       />
     </div>
 
-    <div v-if="isError && errorMessage.length > 0" class="flex align-start justify-start text-sm text-red-300 mt-1 ml-2">
+    <div v-if="errorMessage?.length > 0" class="flex align-start justify-start text-sm text-red-300 mt-1 ml-2">
       {{errorMessage}}
     </div>
   </div>
 </template>
 
 <script setup>
-import {ref, defineProps,defineEmits, watch} from "vue";
+import {ref, defineProps, defineEmits, watch, toRef} from "vue";
+import {useField} from "vee-validate";
 
 const emits= defineEmits(['update:modelValue'])
 const props = defineProps({
   modelValue:{},
+  vid: {
+    type:String,
+    required:false,
+  },
   placeholder: {
     type:String,
     required: false,
@@ -48,26 +56,31 @@ const props = defineProps({
     required: false,
     default:'#EFEFEF'
   },
-  errorMessage: {
-    type:String,
+  height: {
+    type:Number,
+    default:2.5,
+    required: false
+  },
+  rules:{
+    type: String,
     required: false,
-    default:''
+    default: ""
   },
   type: {
     type: String,
     required: false,
     default: 'text'
-  },
-  height: {
-    type:Number,
-    default:2.5,
-    required: false
   }
 })
 
-const value = ref(props.modelValue)
+const vid = toRef(props, 'vid')
+
+const {value, errorMessage} = useField(vid,props.rules );
+
+const valueInput = ref(props.modelValue)
 let isInputFocused = ref(false)
 let isError = ref(false)
+
 function onInputFocus() {
   isInputFocused.value = true;
 }
@@ -76,7 +89,7 @@ function onInputBlur() {
 }
 
 watch(value, () => {
-  emits('update:modelValue', value.value)
+  emits('update:modelValue', value)
 })
 </script>
 
