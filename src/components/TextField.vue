@@ -11,7 +11,7 @@
     <div :class="[isError ? 'border-[0.06em] border-red-300' : isInputFocused ? 'border-[0.06em] border-gray-400' : 'border-[0.04em] border-gray-400']"
          class="rounded"
     >
-      <input type="text"
+      <input :type="type"
              v-model="value"
              class="rounded pl-3 text-sm w-full "
              :placeholder="placeholder"
@@ -53,7 +53,11 @@ const props = defineProps({
     required: false,
     default:''
   },
-
+  type: {
+    type: String,
+    required: false,
+    default: 'text'
+  },
   height: {
     type:Number,
     default:2.5,
