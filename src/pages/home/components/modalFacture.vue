@@ -59,7 +59,6 @@ function sendFiles() {
   listFilesUploaded.value.forEach((file) => {
     formData.append('file', file);
   })
-  console.log(listFilesUploaded.value.length)
   axios.post('paperless/test',
       {files: listFilesUploaded.value},
       {

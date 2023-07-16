@@ -75,7 +75,9 @@ const props = defineProps({
 
 const vid = toRef(props, 'vid')
 
-const {value, errorMessage} = useField(vid,props.rules );
+const {value, errorMessage} = useField(vid,props.rules, {
+  initialValue: props.modelValue
+} );
 
 const valueInput = ref(props.modelValue)
 let isInputFocused = ref(false)
