@@ -15,7 +15,7 @@
         <div class="w-full h-[0.01em] bg-black/20 mt-4"></div>
 
         <div class="mt-4">
-          <text-field :width="16" class="mb-4" label="Nom" v-model="currentEntreprise.nom"></text-field>
+          <text-field :width="16" class="mb-4" placeholder label="Nom" v-model="currentEntreprise.nom"></text-field>
           <text-field :width="16" class="mb-4" label="Adresse" v-model="currentEntreprise.adresse"></text-field>
           <text-field :width="16" label="Ville" v-model="currentEntreprise.ville"></text-field>
         </div>
@@ -24,6 +24,12 @@
           <button-default class="px-4 py-2" @click="updateEntreprise">Modifier</button-default>
         </div>
 
+        <div v-if="isSuccess" class="text-xl validation-success mt-2">
+          Modification réussie !
+        </div>
+        <div v-if="isError" class="text-xl validation-error mt-2">
+          Une erreur s'est produite lors de la modification.
+        </div>
       </div>
     </div>
   </modal-default>
@@ -33,7 +39,9 @@
 import ButtonDefault from "@/components/ButtonDefault.vue";
 import TextField from "@/components/TextField.vue";
 import modalDefault from "@/components/ModalDefault.vue";
-
+import axios from '@/axiosConfig'
+import useEntrepriseStore from '@/store/entreprise'
+import { mapGetters } from "vuex";
 import {toRef} from "vue";
 
 const emits = defineEmits(['update:modelValue'])
@@ -59,28 +67,29 @@ let show = toRef(props, 'modelValue')
           nom: "",
           adresse: "",
           ville: "",
-          valide: true,
-        }
+        },
+        isSuccess: false,
+        isError: false,
       }
+    },
+    created() {
+      this.currentEntreprise = useEntrepriseStore.getters.getEntreprise
+    },
+    computed: {
+      ...mapGetters("entreprise", ["getEntreprise"]),
     },
     methods: {
     updateEntreprise() {
-      console.log('la')
-      const updateSuccessful = Math.random() < 0.5; // Randomly true or false
-
-      if (updateSuccessful) {
-        this.showValidationMessage = true;
-        this.validationMessageClass = "validation-success";
-        this.validationMessageText = "Modification réussie.";
-      } else {
-        this.showValidationMessage = true;
-        this.validationMessageClass = "validation-error";
-        this.validationMessageText = "Échec de la modification.";
-      }
-
-      setTimeout(() => {
-        this.showValidationMessage = false;
-      }, 3000);
+      
+      axios.put('paperless/entreprise', this.currentEntreprise).then(({data}) => {
+          console.log(data)
+          this.isSuccess = true;
+          this.isError = false;
+      }).catch((e) => {
+          console.error(e)
+          this.isSuccess = false;
+          this.isError = true;
+      })
     },
   },
 };

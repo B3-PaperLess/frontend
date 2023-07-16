@@ -8,16 +8,30 @@
         </template>
 
         <template v-slot:content>
-          <p>nom</p>
-          <p>adresse</p> 
-          <p>ville</p> 
-        </template>
-        
-        <template v-slot:button>
-          <div class="text-center">
-            <button-default class="w-1/2 mt-5" @click="showModalUpdateEntreprise=true">
-              Modifier
-            </button-default>
+          <div class="flex">
+            <p>nom</p>
+            <div class="ml-2">{{ entreprise.nom }}</div>
+          </div>
+
+          <div class="flex">
+            <p>adresse</p>
+            <div class="ml-2">
+              {{entreprise.adresse}}
+            </div>
+          </div>
+
+          <div class="flex">
+            <p>ville</p>
+            <div class="ml-2">
+              {{entreprise.ville}}
+            </div>
+          </div>
+
+          <div class="flex">
+            <p>SIRET</p>
+            <div class="ml-2">
+              {{entreprise.siret}}
+            </div>
           </div>
         </template>
       </card-home>
@@ -27,6 +41,7 @@
       <div class="flex flex-row-reverse my-4">
         <button-default class="p-2" @click="showModalFacture=true">Deposer une facture</button-default>
       </div>
+
       <div>
         <datatable
             :headers="headers"
@@ -37,33 +52,25 @@
       </div>
     </div>
 
-<<<<<<< Updated upstream
     <modal-facture v-model="showModalFacture"></modal-facture>
-    <modal-update-entreprise v-model="showModalUpdateEntreprise"></modal-update-entreprise>
-=======
-    <modal-facture v-model="showModalFacture" ></modal-facture>
->>>>>>> Stashed changes
   </div>
   </template>
   
   <script>
   import datatable from "@/components/datatable.vue"
   import ModalFacture from "@/pages/home/components/modalFacture.vue";
-  import ModalUpdateEntreprise from "@/pages/home/components/modalUpdateEntreprise.vue";
   import ButtonDefault from "@/components/ButtonDefault.vue";
   import cardHome from "@/components/cardHome.vue"
-  
+  import useEntrepriseStore from "../../store/entreprise";
+
   export default {
     name: "indexApp",
-    components: {ButtonDefault, ModalFacture, datatable, cardHome, ModalUpdateEntreprise },
+    components: {ButtonDefault, ModalFacture, datatable, cardHome },
     data() {
       return {
-<<<<<<< Updated upstream
-=======
         loading:true,
         entreprise: null,
         factures: [],
->>>>>>> Stashed changes
         showModalFacture: false,
         showModalUpdateEntreprise: false,
         val: null,
@@ -77,10 +84,9 @@
         items:[],
         keys: ['nom','user', 'date', 'taille', 'state'],
       }
-<<<<<<< Updated upstream
-=======
     },
     created() {
+      this.entreprise = useEntrepriseStore.getters.getEntreprise
       this.loadFactures()
     },
     methods: {
@@ -129,7 +135,6 @@
       showModalFacture() {
         this.loadFactures()
       }
->>>>>>> Stashed changes
     }
   }
   </script>
