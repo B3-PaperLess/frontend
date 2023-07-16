@@ -14,11 +14,11 @@
       <button-default v-if="user.isAdmin" class="w-32 px-4 py-2" @click="$router.push({name: 'admin'})"> Panel Admin </button-default>
 
       <button-default v-if="user.isLogged"  class="px-4 py-2" @click="logout">
-        Déconnexion
+        Deconnexion
       </button-default>
 
       <button-default v-else class="px-4 py-2" @click="$router.push({name: 'connexion'})">
-        Connexion
+        connexion
       </button-default>
     </div>
 
