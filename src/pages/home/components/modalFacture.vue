@@ -1,5 +1,5 @@
 <template>
-  <modal-default v-model="show" @update:model-value="emits('update:modelValue')">
+  <modal-default v-model="show" @update:model-value="emits('update:modelValue', false)">
     <div class="py-2 px-4">
       <div class="text-3xl font-medium px-12 mt-2">
         Déposer une facture
@@ -11,18 +11,18 @@
             <button-default class="w-full" @click="fileInput.click()">Sélectionner un fichier</button-default>
           </label>
 
-          <input type="file" id="fileInput" ref="fileInput" multiple @change="(e) => handleUpload(e)">
+          <input type="file" id="fileInput" ref="fileInput" accept=".pdf" @change="(e) => handleUpload(e)">
         </div>
 
         <div class="w-full h-[0.01em] bg-black/20 mt-4"></div>
 
         <div class="mt-4">
           <div class="text-base">
-            Liste des fichier :
+            fichier :
           </div>
 
-          <div v-for="file in listFilesUploaded">
-            {{file.name}} - {{formatFileSize(file.size)}}
+          <div v-if="filesUploaded">
+            {{filesUploaded.name}} - {{formatFileSize(filesUploaded.size)}}
           </div>
         </div>
 
@@ -47,27 +47,25 @@ const props = defineProps({
 
 
 let show = toRef(props, 'modelValue')
-let listFilesUploaded = ref([])
+let filesUploaded = ref(null)
 const fileInput = ref(null)
 
 function handleUpload(e) {
-  listFilesUploaded.value.push(...e.target.files);
+  filesUploaded.value = e.target.files[0];
 }
 
 function sendFiles() {
   let formData = new FormData();
-  listFilesUploaded.value.forEach((file) => {
-    formData.append('file', file);
-  })
-  console.log(listFilesUploaded.value.length)
-  axios.post('paperless/test',
-      {files: listFilesUploaded.value},
+  formData.append('file', filesUploaded.value);
+
+  axios.post('paperless/facture',
+      formData,
       {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       }).then(({data}) => {
-    console.log(data)
+      emits('update:modelValue', false)
   })
 }
 

@@ -54,7 +54,7 @@ const user = createStore({
             }
         },
         logout(context) {
-            context.commit('logout')
+            context.commit('logout');
             Cookies.remove('token');
         },
     },
