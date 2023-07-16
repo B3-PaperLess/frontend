@@ -39,7 +39,7 @@
       </div>
     </div>
   </div>
-  {{useUserStore.state}}
+
   <div class="w-full">
     <div>
       <div class="text-center text-3xl">
@@ -89,16 +89,14 @@ let userInscription = ref({
 })
 
 let user = ref({
-    email: 'tsauvage@',
-    password:'mdp'
+    email: '',
+    password:''
 })
 
 function inscription() {
   axios.post('paperless/signup', {
     ...userInscription.value,
     ...entreprise.value
-  }).then((res) => {
-    console.log(res)
   })
 }
 
@@ -108,6 +106,7 @@ function connexion() {
     if (data) {
       useUserStore.dispatch('initUser', data);
       useEntrepriseStore.dispatch('initEntreprise', data.user.entreprise);
+      useEntrepriseStore.dispatch('getUsers')
       router.push({name: 'home'})
     }
   })

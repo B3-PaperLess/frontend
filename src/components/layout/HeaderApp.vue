@@ -7,16 +7,21 @@
     </div>
 
     <div v-if="user.isLogged">
-      Bonjour {{ user.nom }}   {{user.prenom}}
+      Bonjour {{ user.nom }}   {{user.prenom}} {{user}}
     </div>
 
-    <button-default v-if="user.isLogged" @click="logout">
-      Déconnexion
-    </button-default>
+    <div class="flex gap-x-12 my-2">
+      <button-default v-if="user.isAdmin" class="w-32 px-4 py-2" @click="$router.push({name: 'admin'})"> Panel Admin </button-default>
 
-    <button-default v-else class="px-2 my-2" @click="$router.push({name: 'connexion'})">
-      Connexion
-    </button-default>
+      <button-default v-if="user.isLogged"  class="px-4 py-2" @click="logout">
+        Déconnexion
+      </button-default>
+
+      <button-default v-else class="px-4 py-2" @click="$router.push({name: 'connexion'})">
+        Connexion
+      </button-default>
+    </div>
+
   </div>
 </template>
 
@@ -25,14 +30,18 @@ import MiniLogo from '@/components/icons/MiniLogo.vue'
 import ButtonDefault from "@/components/ButtonDefault.vue";
 import {ref} from "vue";
 import useUserStore from '@/store/user'
+import {useRouter} from "vue-router";
+
+const router = useRouter()
 
 
 const srcImage = ref(require("@/assets/image/offline.png"))
 const user = useUserStore.getters.getUser
 
-
 function logout() {
   useUserStore.dispatch('logout')
+  router.push({name: 'index'})
+
 }
 </script>
 
@@ -41,8 +50,6 @@ function logout() {
 
 export default {
   name: "HeaderApp",
-  data() {
-  }
 }
 </script>
 

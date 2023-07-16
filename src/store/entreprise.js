@@ -8,6 +8,7 @@ const entreprise = createStore({
             siret:'',
             adresse:'',
             ville:'',
+            users: [],
             admin: {
                 nom:'',
                 prenom:'',
@@ -23,6 +24,12 @@ const entreprise = createStore({
             state.ville = data.ville
             state.siret = data.siret
             state.admin = data.admin
+        },
+        setUsers(state, users) {
+            state.users = users
+        },
+        addUser(state, user) {
+          state.users.push(user)
         },
         logout(state) {
             state.nom = ''
@@ -40,8 +47,7 @@ const entreprise = createStore({
     },
     actions: {
         initEntreprise(context, id) {
-            axios.get('paperless/entreprise?id=' + id, {withCredentials:true}).then(({data}) => {
-                console.log(data)
+            axios.get('paperless/entreprise?id=' + id).then(({data}) => {
                 const value = {
                     nom:data.entreprise.nom,
                     adresse:data.entreprise.adresse,
@@ -56,15 +62,41 @@ const entreprise = createStore({
                 }
 
                 context.commit('set', value)
+            }).catch((e) => {
+                console.error(e)
             })
         },
         logout(context) {
             context.commit('logout')
+        },
+        createUser(context, user) {
+            axios.post('paperless/user', user).then(({data}) => {
+                context.commit('addUser', data.user)
+            })
+        },
+        deleteUser(context, email) {
+            axios.delete('paperless/user?email=' + email).then(({data}) => {
+                context.dispatch('getUsers')
+            })
+        },
+        adminSwitch(context, email) {
+            axios.post('paperless/transfer_admin', email)
+        },
+        getUsers(context) {
+            axios.get('paperless/entreprise-users').then(({data}) => {
+                context.commit('setUsers', data.users)
+            }).catch((e) => {
+                console.error(e)
+            })
         }
     },
     getters: {
         getEntreprise(state) {
             return state
+        },
+        getUsers(state) {
+            console.log('state', state.users)
+            return state.users
         }
     },
 });
