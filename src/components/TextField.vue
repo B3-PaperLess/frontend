@@ -11,7 +11,7 @@
     <div :class="[isError ? 'border-[0.06em] border-red-300' : isInputFocused ? 'border-[0.06em] border-gray-400' : 'border-[0.04em] border-gray-400']"
          class="rounded"
     >
-      <input type="text"
+      <input
              v-model="value"
              class="rounded pl-3 text-sm w-full "
              :placeholder="placeholder"
