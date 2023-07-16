@@ -24,15 +24,18 @@
           <button-default class="px-4 py-2" @click="updateEntreprise">Modifier</button-default>
         </div>
 
-        <div v-if="showValidationMessage" :class="validationMessageClass">
-          {{ validationMessageText }}
-        </div>
       </div>
     </div>
   </modal-default>
 </template>
 
 <script setup>
+import ButtonDefault from "@/components/ButtonDefault.vue";
+import TextField from "@/components/TextField.vue";
+import modalDefault from "@/components/ModalDefault.vue";
+
+import {toRef} from "vue";
+
 const emits = defineEmits(['update:modelValue'])
 const props = defineProps({
   modelValue:{}
@@ -41,13 +44,9 @@ let show = toRef(props, 'modelValue')
 </script>
 
 <script>
-  import ModalDefault from "@/components/ModalDefault.vue";
-  import { toRef, ref } from "vue";
-  import ButtonDefault from "@/components/ButtonDefault.vue";
-  import TextField from "@/components/TextField.vue";
+
   export default {
     name: "modalUpdateEntreprise",
-    components: { ButtonDefault, ModalDefault, TextField },
     props: {
     classes: {
         entreprise: Object,
@@ -64,11 +63,9 @@ let show = toRef(props, 'modelValue')
         }
       }
     },
-    // created() {
-    //   currentEntreprise = this.entreprise;
-    // },
     methods: {
     updateEntreprise() {
+      console.log('la')
       const updateSuccessful = Math.random() < 0.5; // Randomly true or false
 
       if (updateSuccessful) {

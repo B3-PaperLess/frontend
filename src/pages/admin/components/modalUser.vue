@@ -5,16 +5,45 @@
       Ajouter un utilisateur
     </div>
 
-    <div class="mt-8 flex flex-col gap-y-4">
-      <text-field label="nom" v-model="newUser.nom"></text-field>
-      <text-field label="prenom" v-model="newUser.prenom"></text-field>
-      <text-field label="email" v-model="newUser.email"></text-field>
-      <text-field label="numero" v-model="newUser.num_tel"></text-field>
-      <text-field label="mot de passe" class="mt-2" v-model="newUser.password"></text-field>
-      <text-field label="confirmer mot de passe" v-model="newUser.passwordAgain"></text-field>
+    <formulaire @submit="createUser" class="mt-8 flex flex-col gap-y-4">
+      <text-field label="nom"
+                  rules="required|noNumber|min:2"
+                  v-model="newUser.nom"
+                  vid="newUserNom">
+      </text-field>
 
-      <button-default class="mt-4" @click="createUser"> valider </button-default>
-    </div>
+      <text-field label="prenom"
+                  v-model="newUser.prenom"
+                  rules="required|noNumber|min:2"
+                  vid="newUserPrenom">
+      </text-field>
+
+      <text-field label="email"
+                  v-model="newUser.email"
+                  rules="required|email"
+                  vid="newUSerEmail">
+      </text-field>
+
+      <text-field label="numero de téléphone"
+                  rules="required|digits:10"
+                  v-model="newUser.num_tel"
+                  vid="newUseNumtel">
+      </text-field>
+
+      <text-field label="mot de passe"
+                  class="mt-2" v-model="newUser.password"
+                  rules="required|min:4|oneUppercase|oneLowercase|oneNumber"
+                  vid="newUserPassword">
+      </text-field>
+
+      <text-field label="confirmer mot de passe"
+                  v-model="newUser.passwordAgain"
+                  rules="confirmed:@newUserPassword"
+                  vid="newUserPasswordAgain">
+      </text-field>
+
+      <button-default class="mt-4" > valider </button-default>
+    </formulaire>
   </div>
 </modal-default>
 </template>
@@ -24,6 +53,7 @@ import ModalDefault from "@/components/ModalDefault.vue";
 import {ref, toRef} from "vue";
 import TextField from "@/components/TextField.vue";
 import ButtonDefault from "@/components/ButtonDefault.vue";
+import Formulaire from "@/components/Formulaire.vue";
 
 
 const emits = defineEmits(['update:modelValue', 'createUserEntreprise'])
