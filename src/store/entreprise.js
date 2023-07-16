@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import axios from "@/axiosConfig";
+import router from '@/router';
 
 const entreprise = createStore({
     state() {
@@ -80,7 +81,13 @@ const entreprise = createStore({
             })
         },
         adminSwitch(context, email) {
-            axios.post('paperless/transfer_admin', email)
+            axios.post('paperless/transfer-admin', {email: email}).then(({data}) => {
+                console.log(data)
+                router.push("/home");
+            }).catch((e) => {
+                alert(e.response.data)
+                console.error(e)
+            })
         },
         getUsers(context) {
             axios.get('paperless/entreprise-users').then(({data}) => {
