@@ -15,7 +15,7 @@
         <div class="w-full h-[0.01em] bg-black/20 mt-4"></div>
 
         <div class="mt-4">
-          <text-field :width="16" class="mb-4" label="Nom" v-model="currentEntreprise.nom"></text-field>
+          <text-field :width="16" class="mb-4" placeholder label="Nom" v-model="currentEntreprise.nom"></text-field>
           <text-field :width="16" class="mb-4" label="Adresse" v-model="currentEntreprise.adresse"></text-field>
           <text-field :width="16" label="Ville" v-model="currentEntreprise.ville"></text-field>
         </div>
@@ -33,7 +33,9 @@
 import ButtonDefault from "@/components/ButtonDefault.vue";
 import TextField from "@/components/TextField.vue";
 import modalDefault from "@/components/ModalDefault.vue";
-
+import axios from '@/axiosConfig'
+import useEntrepriseStore from '@/store/entreprise'
+import { mapGetters } from "vuex";
 import {toRef} from "vue";
 
 const emits = defineEmits(['update:modelValue'])
@@ -63,24 +65,33 @@ let show = toRef(props, 'modelValue')
         }
       }
     },
+    created() {
+      this.currentEntreprise = useEntrepriseStore.getters.getEntreprise
+    },
+    computed: {
+      ...mapGetters("entreprise", ["getEntreprise"]),
+    },
     methods: {
     updateEntreprise() {
-      console.log('la')
-      const updateSuccessful = Math.random() < 0.5; // Randomly true or false
+      console.log(this.currentEntreprise)
+      // axios.get('paperless/entreprise').then(({data}) => {
+      //           console.log(data)
+      //       }).catch((e) => {
+      //           console.error(e)
+      //       })
+      // if (updateSuccessful) {
+      //   this.showValidationMessage = true;
+      //   this.validationMessageClass = "validation-success";
+      //   this.validationMessageText = "Modification réussie.";
+      // } else {
+      //   this.showValidationMessage = true;
+      //   this.validationMessageClass = "validation-error";
+      //   this.validationMessageText = "Échec de la modification.";
+      // }
 
-      if (updateSuccessful) {
-        this.showValidationMessage = true;
-        this.validationMessageClass = "validation-success";
-        this.validationMessageText = "Modification réussie.";
-      } else {
-        this.showValidationMessage = true;
-        this.validationMessageClass = "validation-error";
-        this.validationMessageText = "Échec de la modification.";
-      }
-
-      setTimeout(() => {
-        this.showValidationMessage = false;
-      }, 3000);
+      // setTimeout(() => {
+      //   this.showValidationMessage = false;
+      // }, 3000);
     },
   },
 };
