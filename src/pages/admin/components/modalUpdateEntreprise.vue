@@ -24,6 +24,12 @@
           <button-default class="px-4 py-2" @click="updateEntreprise">Modifier</button-default>
         </div>
 
+        <div v-if="isSuccess" class="text-xl validation-success mt-2">
+          Modification réussie !
+        </div>
+        <div v-if="isError" class="text-xl validation-error mt-2">
+          Une erreur s'est produite lors de la modification.
+        </div>
       </div>
     </div>
   </modal-default>
@@ -61,7 +67,9 @@ let show = toRef(props, 'modelValue')
           nom: "",
           adresse: "",
           ville: "",
-        }
+        },
+        isSuccess: false,
+        isError: false,
       }
     },
     created() {
@@ -74,23 +82,14 @@ let show = toRef(props, 'modelValue')
     updateEntreprise() {
       
       axios.put('paperless/entreprise', this.currentEntreprise).then(({data}) => {
-                console.log(data)
-            }).catch((e) => {
-                console.error(e)
-            })
-      // if (updateSuccessful) {
-      //   this.showValidationMessage = true;
-      //   this.validationMessageClass = "validation-success";
-      //   this.validationMessageText = "Modification réussie.";
-      // } else {
-      //   this.showValidationMessage = true;
-      //   this.validationMessageClass = "validation-error";
-      //   this.validationMessageText = "Échec de la modification.";
-      // }
-
-      // setTimeout(() => {
-      //   this.showValidationMessage = false;
-      // }, 3000);
+          console.log(data)
+          this.isSuccess = true;
+          this.isError = false;
+      }).catch((e) => {
+          console.error(e)
+          this.isSuccess = false;
+          this.isError = true;
+      })
     },
   },
 };
