@@ -64,15 +64,16 @@
     </modal-default>
   </div>
 
-  <div class="w-full">
+  <div class="w-full p-4">
     <div>
-      <div class="text-center text-3xl">
+      <div class="text-center text-5xl">
         Connexion
-      </div>
+      </div>     
+
       <div class="flex items-center mt-12 flex-col gap-y-6">
-        <text-field :width="16" label="Email" v-model="user.email"></text-field>
-        <text-field :width="16" label="Mot de passe" v-model="user.password"></text-field>
-        <button-default @click="connexion"> Connexion</button-default>
+        <text-field class="w-60" label="Email" v-model="user.email"></text-field>
+        <text-field class="w-60" label="Mot de passe" v-model="user.password"></text-field>
+        <button-default class="p-2" @click="connexion"> Connexion</button-default>
       </div>
     </div>
 
