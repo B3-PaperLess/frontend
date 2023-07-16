@@ -47,6 +47,7 @@ function logout() {
   router.push({name: 'index'})
 
 }
+
 </script>
 
 <script>
