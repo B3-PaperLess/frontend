@@ -1,6 +1,6 @@
 <template>
 <div class="flex w-full mt-8">
-  <div class="w-full  p-4">
+  <div class="w-6/12">
     <div class="w-full">
       <div class="text-center text-5xl">
         Inscription
@@ -67,26 +67,34 @@
               </text-field>
             </div>
           </div>
-          <div class="flex flex-col gap-y-4 w-full">
-            <text-field label="Raison social"
+          <div class="flex flex-col items-center gap-y-4 w-full">
+            <text-field 
+                        class="w-60"
+                        label="Raison social"
                         vid="nomEntreprise"
                         v-model="entreprise.raison_social"
                         rules="required">
             </text-field>
   
-            <text-field label="SIRET"
+            <text-field 
+                        class="w-60"
+                        label="SIRET"
                         vid="siret"
                         rules="required|digits:14"
                         v-model="entreprise.siret">
             </text-field>
   
-            <text-field label="Ville"
+            <text-field 
+                        class="w-60"
+                        label="Ville"
                         vid="ville"
                         rules="required|noNumber"
                         v-model="entreprise.ville">
             </text-field>
   
-            <text-field label="Adresse"
+            <text-field 
+                        class="w-60"
+                        label="Adresse"
                         vid="adresse"
                         rules="required"
                         v-model="entreprise.adresse">
@@ -118,19 +126,29 @@
     </modal-default>
   </div>
 
-  <div class="w-full">
+  <div class="w-0.5 bg-black rounded-sm"></div>
+
+  <div class="w-6/12">
     <div class="w-full">
       <div class="text-center text-5xl">
         Connexion
       </div>
-      <formulaire @submit="connexion" class="flex items-center mt-12 flex-col gap-y-6 w-full">
+    </div>
+
+    <div class="mt-12 w-full">
+      <div class="w-full flex">
+        <div class="text-base text-center w-full">
+          Utilisateur
+        </div>
+      </div>
+      <formulaire @submit="connexion" class="flex items-center mt-4 flex-col w-full">
         <text-field vid="emailConnexion"
                     class="w-64"
                     label="Email"
                     rules="email|required"
                     v-model="user.email">
         </text-field>
-
+  
         <text-field vid="passwordConnexion"
                     class="w-64"
                     label="Mot de passe"
@@ -138,14 +156,10 @@
                     type="password"
                     v-model="user.password">
         </text-field>
-
-        <button-default class="p-2">Connexion</button-default>
+        <button-default class="p-2 m-8">Connexion</button-default>
       </formulaire>
     </div>
-
-    <div class="w-full h-full rounded mt-8 bg-yellow-200/60">
-        Spitch inscription
-    </div>
+    
   </div>
 
 </div>
