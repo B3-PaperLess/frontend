@@ -76,7 +76,7 @@
   
             <text-field label="SIRET"
                         vid="siret"
-                        rules="required|digit:14"
+                        rules="required|digits:14"
                         v-model="entreprise.siret">
             </text-field>
   
