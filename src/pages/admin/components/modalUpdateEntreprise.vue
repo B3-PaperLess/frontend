@@ -61,7 +61,6 @@ let show = toRef(props, 'modelValue')
           nom: "",
           adresse: "",
           ville: "",
-          valide: true,
         }
       }
     },
@@ -73,12 +72,12 @@ let show = toRef(props, 'modelValue')
     },
     methods: {
     updateEntreprise() {
-      console.log(this.currentEntreprise)
-      // axios.get('paperless/entreprise').then(({data}) => {
-      //           console.log(data)
-      //       }).catch((e) => {
-      //           console.error(e)
-      //       })
+      
+      axios.put('paperless/entreprise', this.currentEntreprise).then(({data}) => {
+                console.log(data)
+            }).catch((e) => {
+                console.error(e)
+            })
       // if (updateSuccessful) {
       //   this.showValidationMessage = true;
       //   this.validationMessageClass = "validation-success";
