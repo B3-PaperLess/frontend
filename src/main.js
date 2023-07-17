@@ -9,7 +9,7 @@ import router from '@/router';
 import App from './App.vue';
 import '@/vee-validate';
 
-user.dispatch('initApplication').then((res) => {
+user.dispatch('fetchUser').then((res) => {
     const app = createApp(App);
     app.use(Vue3Toasity,
         {

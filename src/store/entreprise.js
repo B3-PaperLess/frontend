@@ -1,6 +1,7 @@
 import { createStore } from "vuex";
 import axios from "@/axiosConfig";
 import router from '@/router';
+import {toast} from "vue3-toastify";
 
 const entreprise = createStore({
     state() {
@@ -112,11 +113,11 @@ const entreprise = createStore({
             });
         },
         adminSwitch(context, email) {
-            axios.post('paperless/transfer-admin', {email: email}).then(({data}) => {
-                router.push("/home");
+            return axios.post('paperless/transfer-admin', {email: email}).then(({data}) => {
+                router.push({name: 'home'});
+
             }).catch((e) => {
-                alert(e.response.data)
-                console.error(e);
+                toast('une erreur est survenue' , {type: "error"})
             });
         },
         getFactures(context) {

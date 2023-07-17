@@ -99,83 +99,75 @@
   </div>
 </template>
 
-
-  
-<script>
-import ModalFacture from "@/pages/home/components/modalFacture.vue";
-import ModalUser from "@/pages/home/components/modalUser.vue";
-import ButtonDefault from "@/components/ButtonDefault.vue";
-import useEntrepriseStore from "../../store/entreprise";
+<script setup>
+import useEntrepriseStore from "@/store/entreprise";
+import useUserStore from "@/store/user";
+import {toast} from "vue3-toastify";
+import {ref, watch} from "vue";
 import datatable from "@/components/datatable.vue"
 import cardHome from "@/components/cardHome.vue"
-import useUserStore from "../../store/user";
-import {toast} from 'vue3-toastify'
-import entreprise from "../../store/entreprise";
+import ButtonDefault from "@/components/ButtonDefault.vue";
+import ModalFacture from "@/pages/home/components/modalFacture.vue";
+import ModalUser from "@/pages/admin/components/modalUser.vue";
+import CardHome from "@/components/cardHome.vue";
 
+let items = ref([])
+let loading= ref(true)
+let showModalUser= ref(false)
+let showModalFacture= ref( false)
+let keys= ref(['nom','user', 'date', 'taille', 'state'])
+let user= ref(Object.assign({}, useUserStore.getters.getUser))
+let headers= ref(["Document", "Utilisateur", "date", "taille", "etat"])
+let entreprise= ref(Object.assign({}, useEntrepriseStore.getters.getEntreprise))
+
+loadFactures();
+
+function loadFactures() {
+  loading.value = true;
+  useEntrepriseStore.dispatch('getFactures').then(() => {
+    items.value = [];
+
+    useEntrepriseStore.getters.getFactures.forEach((facture) => {
+      items.value.push({
+        user: facture.user.nom + ' ' + facture.user.prenom,
+        nom: facture.nom,
+        taille: formattedSize(facture.taille),
+        state: facture.state,
+        date: facture.date
+      })
+    });
+
+  loading.value = false;
+  });
+}
+
+function formattedSize(sizeInBytes) {
+  const kiloByte = 1024;
+  const megaByte = kiloByte * 1024;
+
+  if (sizeInBytes >= megaByte) {
+    return (sizeInBytes / megaByte).toFixed(2) + ' Mo';
+  } else if (sizeInBytes >= kiloByte) {
+    return (sizeInBytes / kiloByte).toFixed(2) + ' Ko';
+  } else {
+    return sizeInBytes + ' octets';
+  }
+}
+
+function updateUser(newUser) {
+  useUserStore.dispatch('updateUser', newUser).then(() => {
+    toast('Modification accepter', {type: 'success'});
+  })
+}
+
+watch(showModalFacture, () => {
+  loadFactures()
+})
+</script>
+  
+<script>
 export default {
   name: "indexApp",
-  components: {ModalUser, ButtonDefault, ModalFacture, datatable, cardHome },
-  data() {
-    return {
-      items:[],
-      val: null,
-      user: null,
-      factures: [],
-      loading:true,
-      entreprise: null,
-      showModalUser: false,
-      showModalFacture: false,
-      headers: ["Document", "Utilisateur", "date", "taille", "etat"],
-      keys: ['nom','user', 'date', 'taille', 'state'],
-    }
-  },
-  created() {
-    this.entreprise = useEntrepriseStore.getters.getEntreprise;
-    this.user = useUserStore.getters.getUser;
-    this.loadFactures();
-  },
-  methods: {
-    loadFactures() {
-      this.loading = true;
-      useEntrepriseStore.dispatch('getFactures').then(() => {
-        this.items = [];
-
-        useEntrepriseStore.getters.getFactures.forEach((facture) => {
-          this.items.push({
-            user: facture.user.nom + ' ' + facture.user.prenom,
-            nom: facture.nom,
-            taille: this.formattedSize(facture.taille),
-            state: facture.state,
-            date: facture.date
-          })
-        });
-
-        this.loading = false;
-      });
-    },
-    formattedSize(sizeInBytes) {
-      const kiloByte = 1024;
-      const megaByte = kiloByte * 1024;
-
-      if (sizeInBytes >= megaByte) {
-        return (sizeInBytes / megaByte).toFixed(2) + ' Mo';
-      } else if (sizeInBytes >= kiloByte) {
-        return (sizeInBytes / kiloByte).toFixed(2) + ' Ko';
-      } else {
-        return sizeInBytes + ' octets';
-      }
-    },
-    updateUser(newUser) {
-      useUserStore.dispatch('updateUser', newUser).then(() => {
-        toast('Modification accepter', {type: 'success'});
-      })
-    }
-  },
-  watch: {
-    showModalFacture() {
-      this.loadFactures();
-    }
-  }
 }
 </script>
 

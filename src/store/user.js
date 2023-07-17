@@ -42,11 +42,11 @@ const user = createStore({
 
             context.commit('login');
         },
-        initApplication(context) {
+        fetchUser(context) {
             const token = Cookies.get('token');
 
             if (token?.length > 0) {
-                axios.get('paperless/me').then(({data}) => {
+                return axios.get('paperless/me').then(({data}) => {
                     context.commit('updateUser', data);
                     context.commit('login');
                     useEntrepriseStore.dispatch('getEntreprise', data.entreprise);
@@ -58,7 +58,7 @@ const user = createStore({
             Cookies.remove('token');
         },
         updateUser(context, data) {
-            axios.put('paperless/user', data).then(({data}) => {
+            return axios.put('paperless/user', data).then(({data}) => {
                 context.commit('updateUser', data.user);
             });
         }

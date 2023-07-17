@@ -66,7 +66,7 @@
                      :keys="['nom', 'prenom', 'email', 'num_tel']"
                      :actions="['delete', 'admin']"
                       @delete="(email) => deleteUser(email)"
-                      @admin="(email) => addUser(email)">
+                      @admin="(email) => adminUser(email)">
           </datatable>
         </div>
       </div>
@@ -80,6 +80,7 @@ import ModalUser from "@/pages/admin/components/modalUser.vue";
 import ButtonDefault from "@/components/ButtonDefault.vue";
 import Formulaire from "@/components/Formulaire.vue";
 import useEntrepriseStore from '@/store/entreprise';
+import useUserStore from '@/store/user'
 import TextField from "@/components/TextField.vue";
 import Datatable from "@/components/datatable.vue";
 import {onMounted, ref} from "vue";
@@ -101,7 +102,9 @@ onMounted(() => {
 })
 
 function getUsers() {
-  useEntrepriseStore.dispatch('getUsers')
+  return useEntrepriseStore.dispatch('getUsers').then(() => {
+    entreprise.value = Object.assign({}, useEntrepriseStore.getters.getEntreprise)
+  })
 }
 
 function createUserEntreprise(newUser) {
@@ -111,7 +114,7 @@ function createUserEntreprise(newUser) {
     entreprise.value = useEntrepriseStore.getters.getEntreprise
   })
 
-  if (newUser) {
+  if (user) {
     showModalUser.value = false
   }
 }
@@ -121,8 +124,10 @@ function deleteUser(email) {
   getUsers()
 }
 
-function addUser(email) {
-  useEntrepriseStore.dispatch('adminSwitch', email)
+function adminUser(email) {
+  useEntrepriseStore.dispatch('adminSwitch', email).then(() => {
+    useUserStore.dispatch('fetchUser')
+  })
 }
 
 function sendModifEntreprise() {
