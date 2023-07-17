@@ -1,6 +1,6 @@
 <template>
   <component :is="'button'"
-             :style="{background:background}"
+             :style="{background:[ disabled ? disableBackground : background], color: [disabled ? '#757474' : '#2a2a2a']}"
              class="rounded shadow text-lg whitespace-nowrap font-medium"
              @click="onClick($event)">
     <slot></slot>
@@ -33,6 +33,11 @@ export default {
     background: {
       type: String,
       default:'#f3ecc1',
+      required: false
+    },
+    disableBackground: {
+      type: String,
+      default:'#fdfaee',
       required: false
     },
     label: {

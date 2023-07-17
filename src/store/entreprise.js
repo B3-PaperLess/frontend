@@ -10,6 +10,7 @@ const entreprise = createStore({
             siret:'',
             adresse:'',
             ville:'',
+            updated: false,
             users: [],
             factures: [],
             admin: {
@@ -26,6 +27,7 @@ const entreprise = createStore({
             state.adresse = data.adresse;
             state.ville = data.ville;
             state.siret = data.siret;
+            state.updated = data.updated
             state.admin = data.admin;
         },
         update(state, data) {
@@ -33,6 +35,7 @@ const entreprise = createStore({
           state.adresse = data.adresse;
           state.ville = data.ville;
           state.siret = data.siret;
+          state.updated = true;
         },
         setUsers(state, users) {
             state.users = users;
@@ -67,6 +70,7 @@ const entreprise = createStore({
                     adresse: data.entreprise.adresse,
                     ville: data.entreprise.ville,
                     siret: data.entreprise.siret,
+                    updated: data.entreprise.is_updated,
                     admin: {
                         nom: data.admin.nom,
                         prenom: data.admin.nom,

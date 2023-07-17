@@ -13,7 +13,7 @@
       </template>
 
       <template v-slot:content>
-        <formulaire @submit="sendModifEntreprise" class="flex flex-col gap-y-6 mt-8">
+        <formulaire @submit="showModalModifInformation = true" class="flex flex-col gap-y-6 mt-8">
           <text-field v-model="entreprise.nom"
                       label="Nom"
                       rules="required"
@@ -44,6 +44,8 @@
 
           <button-default class="mt-8 px-4 py-2">Modifier les informations</button-default>
         </formulaire>
+
+        <modal-modif-entreprise v-model="showModalModifInformation" @confirm="sendModifEntreprise"></modal-modif-entreprise>
       </template>
 
     </card-home>
@@ -86,10 +88,11 @@ import Datatable from "@/components/datatable.vue";
 import {onMounted, ref} from "vue";
 import {toast} from 'vue3-toastify';
 import CardHome from "@/components/cardHome.vue";
+import ModalModifEntreprise from "@/pages/admin/components/ModalModifEntreprise.vue";
 
 let entreprise = ref(Object.assign({}, useEntrepriseStore.getters.getEntreprise))
 let showModalUser = ref(false)
-
+let showModalModifInformation = ref(false)
 
 onMounted(() => {
   if (entreprise.value.siret?.length < 1) {

@@ -1,10 +1,6 @@
 <template>
   <div v-if="value" class="fixed top-0 left-0 h-[100%] w-full bg-gray-800/30 flex items-center justify-center " @click.self="close">
-    <div class="relative rounded-3xl max-h-[80%]" :class="classe" :style="{background:background}">
-      <div class="absolute top-2.5 right-2.5 cursor-pointer text-grey-900 w-fit" @click="close">
-        <x-solid></x-solid>
-      </div>
-
+    <div class="relative rounded-3xl max-h-[90%] max-w-[90%]" :class="classe" :style="{background:background}">
       <slot class="h-full"/>
     </div>
   </div>

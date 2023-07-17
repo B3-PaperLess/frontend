@@ -5,6 +5,10 @@
         Déposer une facture
       </div>
 
+      <div class="mt-4 text-gray-400">
+        Seul le format PDF est accepter pour le depot de votre facture
+      </div>
+
       <div class="mt-12">
         <div class="mx-4">
           <label for="fileInput" class="custom-file-upload w-full">
@@ -21,19 +25,25 @@
             fichier :
           </div>
 
-          <div v-if="filesUploaded" class="mt-4">
-            <div class="font-medium">
-              {{filesUploaded.name}}
+          <div v-if="filesUploaded" class="mt-4 flex justify-around">
+            <div>
+              <div class="font-medium">
+                {{filesUploaded.name}}
+              </div>
+
+              <div class="text-sm text-gray-500/50">
+                {{formatFileSize(filesUploaded.size)}}
+              </div>
             </div>
 
-            <div class="text-sm text-gray-500/50">
-              {{formatFileSize(filesUploaded.size)}}
+            <div class="w-fit p-1.5 rounded-full hover:bg-black/20 cursor-pointer" @click="filesUploaded = null">
+              <trash-solid class="w-8 text-red-500"></trash-solid>
             </div>
           </div>
         </div>
 
         <div class="mt-6 flex flex-row-reverse mb-4 mr-4">
-          <button-default class="px-4 py-2" @click="sendFiles">envoyer</button-default>
+          <button-default :disabled="filesUploaded === null" class="px-4 py-2" @click="sendFiles">envoyer</button-default>
         </div>
       </div>
     </div>
@@ -46,6 +56,7 @@ import {ref, toRef} from "vue";
 import ButtonDefault from "@/components/ButtonDefault.vue";
 import axios from "@/axiosConfig";
 import {toast} from 'vue3-toastify'
+import TrashSolid from "@/components/icons/TrashSolid.vue";
 
 const emits = defineEmits(['update:modelValue'])
 const props = defineProps({
@@ -80,6 +91,7 @@ function sendFiles() {
     toast('Une erreur est survenue', {type: "error"})
   })
 }
+
 
 function formatFileSize(sizeInBytes) {
   const kiloByte = 1024;

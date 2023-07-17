@@ -1,8 +1,12 @@
 <template>
 <modal-default v-model="show" @update:model-value="emits('update:modelValue')">
-  <div class="px-10 py-6">
-    <div class="text-3xl font-medium">
+  <div class="px-24 py-6">
+    <div class="text-3xl font-medium mt-4">
       Ajouter un utilisateur
+    </div>
+
+    <div class="mt-4 text-gray-500 w-80 text-center">
+      Vous pouvez ici créer des utilisateur qui pourront déposer des factures sur notre plateforme
     </div>
 
     <formulaire @submit="createUser" class="mt-8 flex flex-col gap-y-6">

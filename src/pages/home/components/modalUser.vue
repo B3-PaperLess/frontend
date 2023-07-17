@@ -1,12 +1,14 @@
 <template>
-<modal-default v-model="show" @update:model-value="emits('update:modelValue')">
-  <div class="py-4 px-16 flex flex-row gap-x-8">
-    <div class="flex items-center flex-col">
-      <div class="text-3xl font-medium">
-        Vos informations
-      </div>
+<modal-default v-model="show" @update:model-value="emits('update:modelValue')" classe="w-3/6">
+  <div class="text-3xl text-center font-medium mt-8">
+    Vos informations
+  </div>
 
-      <formulaire @submit="updateUser" class="flex flex-col gap-y-4 mt-6">
+  <div class="w-full py-4 px-16 flex flex-row gap-x-20 mt-8 pb-12">
+    <div class="w-full flex flex-col justify-center">
+      <div class="text-xl font-medium">Modification de vos informations</div>
+
+      <formulaire @submit="updateUser" class="flex flex-col gap-y-6 mt-6">
         <text-field label="nom" vid="nom" v-model="userInfo.nom" rules="required|noNumber"></text-field>
         <text-field label="prenom" vid="prenom" v-model="userInfo.prenom" rules="required|noNumber"></text-field>
         <text-field label="email" vid="email" v-model="userInfo.email" rules="required|email"></text-field>
@@ -16,12 +18,12 @@
       </formulaire>
     </div>
 
-    <div class="flex justify-center flex-col">
+    <div class="w-full flex justify-center flex-col">
       <div class="text-xl font-medium">
         Modification du mot de passe
       </div>
 
-      <formulaire @submit="updatePassword" class="mt-4 flex flex-col gap-y-4">
+      <formulaire @submit="updatePassword" class="mt-4 flex flex-col gap-y-6">
         <text-field label="mot de passe Actuel" type="password" vid="currentPassword" v-model="passwordUpdate.passwordCurrent" rules="required"></text-field>
 
         <text-field label="Nouveau mot de passe" type="password" vid="newPassword" v-model="passwordUpdate.passwordNew" rules="required|min:4|oneUppercase|oneLowercase|oneNumber"></text-field>
