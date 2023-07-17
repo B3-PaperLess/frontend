@@ -1,14 +1,14 @@
 <template>
   <modal-default v-model="show" @update:model-value="emits('update:modelValue', false)">
-    <div class="py-2 px-4">
+    <div class="py-4 px-16">
       <div class="text-3xl font-medium px-12 mt-2">
         Déposer une facture
       </div>
 
-      <div class="mt-6">
+      <div class="mt-12">
         <div class="mx-4">
           <label for="fileInput" class="custom-file-upload w-full">
-            <button-default class="w-full" @click="fileInput.click()">Sélectionner un fichier</button-default>
+            <button-default class="w-full h-full" @click="fileInput.click()">Sélectionner un fichier</button-default>
           </label>
 
           <input type="file" id="fileInput" ref="fileInput" accept=".pdf" @change="(e) => handleUpload(e)">
@@ -21,8 +21,14 @@
             fichier :
           </div>
 
-          <div v-if="filesUploaded">
-            {{filesUploaded.name}} - {{formatFileSize(filesUploaded.size)}}
+          <div v-if="filesUploaded" class="mt-4">
+            <div class="font-medium">
+              {{filesUploaded.name}}
+            </div>
+
+            <div class="text-sm text-gray-500/50">
+              {{formatFileSize(filesUploaded.size)}}
+            </div>
           </div>
         </div>
 

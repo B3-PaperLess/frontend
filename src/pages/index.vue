@@ -22,10 +22,8 @@
         </template>
 
         <template v-slot:button>
-          <button-default class="w-1/2 mt-5">
-            <router-link to="/connexion">
+          <button-default class="w-1/2 mt-5" @click="$router.push({name: 'connexion'})">
               Créer un compte
-            </router-link>
           </button-default>
         </template>
       </card-home>
@@ -48,10 +46,8 @@
         </template>
 
         <template v-slot:button>
-          <button-default class="w-1/2 mt-5">
-            <router-link to="/connexion">
+          <button-default class="w-1/2 mt-5" @click="$router.push({name: 'connexion'})">
               Se connecter
-            </router-link>
           </button-default>
         </template>
       </card-home>

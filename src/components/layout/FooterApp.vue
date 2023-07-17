@@ -1,6 +1,5 @@
 <template>
   <div class="bg-base-lg">
-    footer
   </div>
 </template>
 

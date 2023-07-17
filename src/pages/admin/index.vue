@@ -1,35 +1,65 @@
 <template>
-<div class="flex items-center w-full flex-col px-12">
-  <div class="text-3xl font-medium text-center w-full mt-12">
-    Gestion de l'entreprise
+<div class="flex items-center w-full flex-col px-32">
+  <div class="text-7xl font-medium text-center w-full mt-12">
+    Panel Administrateur
   </div>
 
-  <div class="flex flex-row mt-8 w-full">
-    <div class="w-full flex flex-col items-center">
-      <div class="text-center">
-        Information Entreprise
-      </div>
+  <div class="flex flex-row gap-x-24 mt-32 w-full">
+    <card-home class="w-3/12 h-fit flex flex-col items-center rounded-xl shadow-xl py-4 px-12 pb-8">
+      <template v-slot:title>
+        <div class="text-center text-2xl font-medium mt-4">
+          Information Entreprise
+        </div>
+      </template>
 
-      <div class=" flex flex-col mt-8 gap-y-4">
+      <template v-slot:content>
+        <formulaire @submit="sendModifEntreprise" class="flex flex-col gap-y-4 mt-8">
+          <text-field v-model="entreprise.nom"
+                      label="Nom"
+                      rules="required"
+                      vid="nomEntreprise"
+                      class="">
+          </text-field>
 
-        <button-default @click="showModalUpdateEntreprise = true">Modifier informations</button-default>
-      </div>
+          <text-field v-model="entreprise.adresse"
+                      label="Adresse"
+                      rules="required"
+                      vid="adresseEntreprise"
+                      class="">
+          </text-field>
 
-      <modal-update-entreprise v-model="showModalUpdateEntreprise"></modal-update-entreprise>
-    </div>
+          <text-field v-model="entreprise.ville"
+                      label="Ville"
+                      rules="required|noNumber"
+                      vid="villeEntreprise"
+                      class="">
+          </text-field>
 
-    <div class="w-full">
-      <div class="text-center">
-        Utilisateur lié à l'entreprise
-      </div>
+          <text-field v-model="entreprise.siret"
+                      label="SIRET"
+                      rules="required|digits:14"
+                      vid="siretEntreprise"
+                      class="">
+          </text-field>
 
-      <div class="w-full">
-        <div class="w-full flex flex-row-reverse">
-          <button-default @click="showModalUser=true">Ajouter un utilisateur</button-default>
+          <button-default class="mt-8 px-4 py-2">Modifier les informations</button-default>
+        </formulaire>
+      </template>
 
-          <modal-user v-model="showModalUser" @create-user-entreprise="(e) => createUserEntreprise(e)"></modal-user>
+    </card-home>
+
+    <div class="w-9/12">
+      <div class="w-full flex justify-between">
+        <div class="text-lg font-medium">
+          Utilisateur lié à l'entreprise
         </div>
 
+        <button-default @click="showModalUser=true" class="px-4 py-2">Ajouter un utilisateur</button-default>
+
+        <modal-user v-model="showModalUser" @create-user-entreprise="(e) => createUserEntreprise(e)"></modal-user>
+      </div>
+
+      <div class="w-full mt-8">
         <div>
           <datatable :headers="['nom', 'prenom', 'email', 'tel']"
                      :items="entreprise.users"
@@ -46,21 +76,27 @@
 </template>
 
 <script setup>
-import TextField from "@/components/TextField.vue";
-import useEntrepriseStore from '@/store/entreprise'
-import ButtonDefault from "@/components/ButtonDefault.vue";
-import {onMounted, ref} from "vue";
 import ModalUser from "@/pages/admin/components/modalUser.vue";
+import ButtonDefault from "@/components/ButtonDefault.vue";
+import Formulaire from "@/components/Formulaire.vue";
+import useEntrepriseStore from '@/store/entreprise';
+import TextField from "@/components/TextField.vue";
 import Datatable from "@/components/datatable.vue";
-import ModalUpdateEntreprise from "@/pages/admin/components/modalUpdateEntreprise.vue";
-import {toast} from 'vue3-toastify'
+import {onMounted, ref} from "vue";
+import {toast} from 'vue3-toastify';
+import CardHome from "@/components/cardHome.vue";
 
-const entreprise = ref(useEntrepriseStore.getters.getEntreprise)
+let entreprise = ref(Object.assign({}, useEntrepriseStore.getters.getEntreprise))
 let showModalUser = ref(false)
-let showModalUpdateEntreprise = ref(false)
 
 
 onMounted(() => {
+  if (entreprise.value.siret?.length < 1) {
+    useEntrepriseStore.dispatch('getEntreprise').then(() => {
+      entreprise.value = Object.assign({}, useEntrepriseStore.getters.getEntreprise)
+    })
+  }
+
   getUsers()
 })
 
@@ -69,16 +105,15 @@ function getUsers() {
 }
 
 function createUserEntreprise(newUser) {
+
   const user = useEntrepriseStore.dispatch('createUser', newUser).then(() => {
     toast('Utilisateur inscript', {type: 'success'})
+    entreprise.value = useEntrepriseStore.getters.getEntreprise
   })
 
-  if (user) {
+  if (newUser) {
     showModalUser.value = false
   }
-}
-function updateInformation() {
-  useEntrepriseStore.dispatch('updateInformation', entreprise)
 }
 
 function deleteUser(email) {
@@ -88,6 +123,12 @@ function deleteUser(email) {
 
 function addUser(email) {
   useEntrepriseStore.dispatch('adminSwitch', email)
+}
+
+function sendModifEntreprise() {
+  useEntrepriseStore.dispatch('updateEntreprise', entreprise.value).then(() => {
+    toast('Les informations ont bien été modifier', {type: 'success'})
+  })
 }
 </script>
 

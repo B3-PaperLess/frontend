@@ -150,7 +150,8 @@ module.exports = {
       pink: colors.pink,
       rose: colors.rose,
       'base-lg': '#ECF0FF',
-      'cream': '#F4F4F4'
+      'cream': '#F4F4F4',
+      'base-blue': '#abacfc'
     }),
     columns: {
       auto: 'auto',

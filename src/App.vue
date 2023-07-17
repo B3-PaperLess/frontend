@@ -14,16 +14,15 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import HeaderApp from './components/layout/HeaderApp.vue'
 import FooterApp from './components/layout/FooterApp.vue'
 
+</script>
+
+<script>
 export default {
   name: 'App',
-  components: {
-    HeaderApp,
-    FooterApp
-  },
 }
 </script>
 

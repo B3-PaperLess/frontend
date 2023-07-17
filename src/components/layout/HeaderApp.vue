@@ -10,10 +10,6 @@
       </router-link>
     </div>
 
-    <div v-if="user.isLogged">
-      Bonjour {{user.prenom}} {{ user.nom }}   
-    </div>
-
     <div class="flex gap-x-12 my-2">
       <button-default v-if="user.isAdmin" class="w-32 px-4 py-2" @click="$router.push({name: 'admin'})"> Panel Admin </button-default>
 
