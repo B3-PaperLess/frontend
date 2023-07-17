@@ -42,7 +42,7 @@ const user = createStore({
 
             context.commit('login');
         },
-        async initApplication(context) {
+        initApplication(context) {
             const token = Cookies.get('token')
 
             if (token?.length > 0) {
@@ -57,6 +57,11 @@ const user = createStore({
             context.commit('logout');
             Cookies.remove('token');
         },
+        updateUser(context, data) {
+            axios.put('paperless/user', data).then(({data}) => {
+                context.commit('updateUser', data.user)
+            })
+        }
     },
     getters: {
         getUser(state) {

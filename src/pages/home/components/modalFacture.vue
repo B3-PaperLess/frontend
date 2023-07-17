@@ -39,6 +39,7 @@ import ModalDefault from "@/components/ModalDefault.vue";
 import {ref, toRef} from "vue";
 import ButtonDefault from "@/components/ButtonDefault.vue";
 import axios from "@/axiosConfig";
+import {toast} from 'vue3-toastify'
 
 const emits = defineEmits(['update:modelValue'])
 const props = defineProps({
@@ -65,7 +66,12 @@ function sendFiles() {
           'Content-Type': 'multipart/form-data'
         }
       }).then(({data}) => {
+        if (data.facture) {
+          toast('Facure déposer', {type: "success"})
+        }
       emits('update:modelValue', false)
+  }).catch(() => {
+    toast('Une erreur est survenue', {type: "error"})
   })
 }
 

@@ -53,7 +53,7 @@ import {onMounted, ref} from "vue";
 import ModalUser from "@/pages/admin/components/modalUser.vue";
 import Datatable from "@/components/datatable.vue";
 import ModalUpdateEntreprise from "@/pages/admin/components/modalUpdateEntreprise.vue";
-
+import {toast} from 'vue3-toastify'
 
 const entreprise = ref(useEntrepriseStore.getters.getEntreprise)
 let showModalUser = ref(false)
@@ -69,7 +69,9 @@ function getUsers() {
 }
 
 function createUserEntreprise(newUser) {
-  const user = useEntrepriseStore.dispatch('createUser', newUser)
+  const user = useEntrepriseStore.dispatch('createUser', newUser).then(() => {
+    toast('Utilisateur inscript', {type: 'success'})
+  })
 
   if (user) {
     showModalUser.value = false

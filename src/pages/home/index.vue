@@ -35,7 +35,46 @@
           </div>
         </template>
       </card-home>
-      
+
+      <card-home class="w-full mx-2 mt-10">
+        <template v-slot:title>
+          Information
+        </template>
+
+        <template v-slot:content>
+          <div class="flex">
+            <p>nom</p> <div class="ml-2">{{ user.nom }}</div>
+          </div>
+
+          <div class="flex">
+            <p>prenom</p>
+            <div class="ml-2">
+              {{user.prenom}}
+            </div>
+          </div>
+
+          <div class="flex">
+            <p>email</p>
+            <div class="ml-2">
+              {{user.email}}
+            </div>
+          </div>
+
+          <div class="flex">
+            <p>numéro</p>
+            <div class="ml-2">
+              {{user.tel}}
+            </div>
+          </div>
+        </template>
+
+        <template v-slot:button>
+          <div class="w-full flex justify-center">
+            <button-default class="p-2 mt-4" @click="showModalUser = true">Modifier</button-default>
+          </div>
+        </template>
+      </card-home>
+
     </div>
     <div class="mt-4 col-span-2 w-full">
       <div class="flex flex-row-reverse my-4">
@@ -52,6 +91,7 @@
       </div>
     </div>
 
+    <modal-user v-model="showModalUser" :user="Object.assign({}, user)" @update:user="(newUser) => updateUser(newUser)"></modal-user>
     <modal-facture v-model="showModalFacture"></modal-facture>
   </div>
   </template>
@@ -59,20 +99,24 @@
   <script>
   import datatable from "@/components/datatable.vue"
   import ModalFacture from "@/pages/home/components/modalFacture.vue";
+  import ModalUser from "@/pages/home/components/modalUser.vue";
   import ButtonDefault from "@/components/ButtonDefault.vue";
   import cardHome from "@/components/cardHome.vue"
   import useEntrepriseStore from "../../store/entreprise";
+  import useUserStore from "../../store/user";
+  import {toast} from 'vue3-toastify'
 
   export default {
     name: "indexApp",
-    components: {ButtonDefault, ModalFacture, datatable, cardHome },
+    components: {ModalUser, ButtonDefault, ModalFacture, datatable, cardHome },
     data() {
       return {
         loading:true,
         entreprise: null,
+        user: null,
         factures: [],
         showModalFacture: false,
-        showModalUpdateEntreprise: false,
+        showModalUser: false,
         val: null,
         headers: [
           "Document",
@@ -87,6 +131,7 @@
     },
     created() {
       this.entreprise = useEntrepriseStore.getters.getEntreprise
+      this.user = useUserStore.getters.getUser
       this.loadFactures()
     },
     methods: {
@@ -108,6 +153,12 @@
         } else {
           return sizeInBytes + ' octets';
         }
+      },
+      updateUser(newUser) {
+        useUserStore.dispatch('updateUser', newUser).then(() => {
+          console.log('la')
+          toast('Modification accepter', {type: 'success'})
+        })
       }
     },
     watch: {

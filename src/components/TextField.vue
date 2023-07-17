@@ -91,15 +91,13 @@ function onInputBlur() {
 }
 
 watch(value, () => {
-  emits('update:modelValue', value)
+  emits('update:modelValue', value.value)
 })
 </script>
 
 <script>
 export default {
   name: "TextField",
-  methods: {
-  }
 }
 </script>
 
