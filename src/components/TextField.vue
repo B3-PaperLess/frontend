@@ -1,15 +1,15 @@
 <template>
-  <div class="">
-    <div class="flex align-start justify-start text-sm text-gray-600">
+  <div class="relative">
+    <div class="flex align-start justify-start text-sm" :style="{color: labelColor}">
       <slot v-if="label.length === 0"></slot>
 
-      <div v-else class="text-xs flex align-start">
+      <div v-else class="text-sm flex align-start">
         {{label}}
       </div>
     </div>
 
-    <div :class="[isError ? 'border-[0.06em] border-red-300' : isInputFocused ? 'border-[0.06em] border-gray-400' : 'border-[0.04em] border-gray-400']"
-         class="rounded"
+    <div :class="[errorMessage?.length > 0 ? 'border-[0.06em] border-red-300' : isInputFocused ? 'border-[0.06em] border-gray-400' : 'border-[0.04em] border-gray-400']"
+         class="rounded mt-0.5"
     >
       <input
              v-model="value"
@@ -24,7 +24,7 @@
       />
     </div>
 
-    <div v-if="errorMessage?.length > 0" class="flex align-start justify-start text-sm text-red-300 mt-1 ml-2">
+    <div v-if="errorMessage?.length > 0" class="absolute flex align-start justify-start text-sm text-red-300 mt-1 ml-2">
       {{errorMessage}}
     </div>
   </div>
@@ -70,6 +70,11 @@ const props = defineProps({
     type: String,
     required: false,
     default: 'text'
+  },
+  labelColor: {
+    type: String,
+    required: false,
+    default: '#606060'
   }
 })
 

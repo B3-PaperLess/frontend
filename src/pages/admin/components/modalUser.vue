@@ -5,7 +5,7 @@
       Ajouter un utilisateur
     </div>
 
-    <formulaire @submit="createUser" class="mt-8 flex flex-col gap-y-4">
+    <formulaire @submit="createUser" class="mt-8 flex flex-col gap-y-6">
       <text-field label="nom"
                   rules="required|noNumber|min:2"
                   v-model="newUser.nom"
@@ -42,7 +42,7 @@
                   vid="newUserPasswordAgain">
       </text-field>
 
-      <button-default class="mt-4" > valider </button-default>
+      <button-default class="mt-4 py-2 px-8 w-fit m-auto"> valider </button-default>
     </formulaire>
   </div>
 </modal-default>

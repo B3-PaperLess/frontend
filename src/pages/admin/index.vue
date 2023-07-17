@@ -13,7 +13,7 @@
       </template>
 
       <template v-slot:content>
-        <formulaire @submit="sendModifEntreprise" class="flex flex-col gap-y-4 mt-8">
+        <formulaire @submit="sendModifEntreprise" class="flex flex-col gap-y-6 mt-8">
           <text-field v-model="entreprise.nom"
                       label="Nom"
                       rules="required"
@@ -51,7 +51,7 @@
     <div class="w-9/12">
       <div class="w-full flex justify-between">
         <div class="text-lg font-medium">
-          Utilisateur lié à l'entreprise
+          Utilisateur lié à l'entreprise ({{entreprise.users?.length}})
         </div>
 
         <button-default @click="showModalUser=true" class="px-4 py-2">Ajouter un utilisateur</button-default>

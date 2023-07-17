@@ -1,7 +1,7 @@
 <template>
   <component :is="'button'"
              :style="{background:background}"
-             class="rounded shadow"
+             class="rounded shadow text-lg whitespace-nowrap font-medium"
              @click="onClick($event)">
     <slot></slot>
   </component>

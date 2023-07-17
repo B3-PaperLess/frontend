@@ -8,7 +8,7 @@ configure({
         messages: {
             required: 'Champ requis',
             email: 'Veuillez saisir une adresse e-mail valide',
-            digits: `Le champ doit contenir exactement 0:{length} chiffres`,
+            digits: `Le champ doit contenir 0:{length} chiffres`,
             confirmed: 'Les champs ne correspondent pas',
             alpha: `Le champ doit contenir uniquement des lettres`,
             max: `Le champ ne doit pas contenir plus de {length} caratères`,
