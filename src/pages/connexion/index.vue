@@ -40,7 +40,7 @@
                           v-model="userInscription.email">
               </text-field>
   
-              <text-field class="w-60"
+              <text-field class="w-60 mt-2 "
                           label="N° de téléphone"
                           rules="required|digits:10"
                           vid="telInscription"
@@ -106,21 +106,6 @@
         </div>
       </formulaire>
     </div>
-
-    <modal-default v-model="showModal" classe="w-3/4">
-      <div class="flex flex-col items-center px-10">
-        <div class="text-2xl mt-7">
-          Inscription réussie
-        </div>
-        <div class="text-xl text-center mt-4">
-          Votre compte est en attente de validation par un administrateur
-          Vous recevrez un mail de confirmation lorsque votre compte sera validé
-        </div>
-        <div class="my-7">
-          <button-default @click="$router.push({name: 'index'})" class="p-2">Retour à l'accueil</button-default>
-        </div>
-      </div>
-    </modal-default>
   </div>
 
   <div class="w-1/2 flex flex-col items-center">
@@ -155,6 +140,20 @@
     
   </div>
 
+  <modal-default v-model="showModal" classe="w-3/4">
+    <div class="flex flex-col items-center px-10">
+      <div class="text-2xl mt-7">
+        Inscription réussie
+      </div>
+      <div class="text-xl text-center mt-4">
+        Votre compte est en attente de validation par un administrateur
+        Vous recevrez un mail de confirmation lorsque votre compte sera validé
+      </div>
+      <div class="my-7">
+        <button-default @click="$router.push({name: 'index'})" class="p-2">Retour à l'accueil</button-default>
+      </div>
+    </div>
+  </modal-default>
 </div>
 </template>
 
@@ -172,7 +171,7 @@ import axios from '@/axiosConfig'
 import {ref} from "vue";
 
 let errorMessage = ref('');
-let showModal = ref(false);
+let showModal = ref(true);
 
 const router = useRouter();
 

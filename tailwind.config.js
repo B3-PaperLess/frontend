@@ -151,7 +151,7 @@ module.exports = {
       rose: colors.rose,
       'base-lg': '#ECF0FF',
       'cream': '#F4F4F4',
-      'base-blue': '#abacfc'
+      'base-blue': 'rgba(195,196,253,0.39)'
     }),
     columns: {
       auto: 'auto',
