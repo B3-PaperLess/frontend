@@ -6,7 +6,7 @@
     </div>
 
     <div class="mt-4 text-gray-500 w-80 text-center">
-      Vous pouvez ici créer des utilisateur qui pourront déposer des factures sur notre plateforme
+      Vous pouvez ici créer des utilisateurs qui pourront déposer des factures sur notre plateforme
     </div>
 
     <formulaire @submit="createUser" class="mt-8 flex flex-col gap-y-6">

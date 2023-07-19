@@ -38,7 +38,7 @@
       <card-home class="w-full mt-10 px-14 py-6 rounded-xl shadow-xl">
         <template v-slot:title>
           <div class="text-3xl mt-4 font-medium">
-            Information
+            Informations
           </div>
         </template>
 
@@ -82,7 +82,7 @@
 
           <information-tool-tip class="w-6 ml-2 mt-auto mb-0.5">
             <div class="w-48">
-              Vous retrouver ici l'ensemble des factures déposé par votre entreprise
+              Vous retrouvez ici l'ensemble des factures déposées par votre entreprise
             </div>
           </information-tool-tip>
         </div>
@@ -91,7 +91,7 @@
       </div>
 
       <div v-if="entreprise.updated" class="sm text-red-300">
-        Le dépôt de facture est partiellement suspendu le temps que nos équipe valide vos nouvelles informations
+        Le dépôt de facture est partiellement suspendu le temps que nos équipes valident vos nouvelles informations
       </div>
 
       <div>

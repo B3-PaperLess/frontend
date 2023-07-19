@@ -99,7 +99,7 @@
           </div>
         </div>
         <div class="flex flex-col items-center m-8">
-          <button-default class="w-1/2 p-2">Insciption</button-default>
+          <button-default class="w-1/2 p-2">Inscription</button-default>
           <div class="error">
             {{errorMessage}}
           </div>
@@ -110,7 +110,7 @@
     <modal-default v-model="showModal" classe="w-3/4">
       <div class="flex flex-col items-center px-10">
         <div class="text-2xl mt-7">
-          Inscription réussi
+          Inscription réussie
         </div>
         <div class="text-xl text-center mt-4">
           Votre compte est en attente de validation par un administrateur

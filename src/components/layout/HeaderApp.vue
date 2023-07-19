@@ -18,7 +18,7 @@
       </button-default>
 
       <button-default v-else class="px-4 py-2" @click="$router.push({name: 'connexion'})">
-        connexion
+        Connexion
       </button-default>
     </div>
 
