@@ -68,11 +68,13 @@
                      :keys="['nom', 'prenom', 'email', 'num_tel']"
                      :actions="['delete', 'admin']"
                       @delete="(email) => deleteUser(email)"
-                      @admin="(email) => adminUser(email)">
+                      @admin="(email) => openModal(email)">
           </datatable>
         </div>
       </div>
     </div>
+
+    <modal-user-switch-admin v-model="showModalAdmin" @confirm="adminUser"></modal-user-switch-admin>
   </div>
 </div>
 </template>
@@ -89,10 +91,13 @@ import {onMounted, ref} from "vue";
 import {toast} from 'vue3-toastify';
 import CardHome from "@/components/cardHome.vue";
 import ModalModifEntreprise from "@/pages/admin/components/ModalModifEntreprise.vue";
+import ModalUserSwitchAdmin from "@/pages/admin/components/ModalUserSwitchAdmin.vue";
 
 let entreprise = ref(Object.assign({}, useEntrepriseStore.getters.getEntreprise))
 let showModalUser = ref(false)
 let showModalModifInformation = ref(false)
+let emailUserSelected = ref(null)
+let showModalAdmin = ref(false)
 
 onMounted(() => {
   if (entreprise.value.siret?.length < 1) {
@@ -127,8 +132,10 @@ function deleteUser(email) {
   getUsers()
 }
 
-function adminUser(email) {
-  useEntrepriseStore.dispatch('adminSwitch', email).then(() => {
+function adminUser() {
+  useEntrepriseStore.dispatch('adminSwitch', emailUserSelected.value).then(() => {
+    emailUserSelected.value = null;
+    showModalAdmin = false;
     useUserStore.dispatch('fetchUser')
   })
 }
@@ -137,6 +144,11 @@ function sendModifEntreprise() {
   useEntrepriseStore.dispatch('updateEntreprise', entreprise.value).then(() => {
     toast('Les informations ont bien été modifier', {type: 'success'})
   })
+}
+
+function openModal(email) {
+  emailUserSelected.value = email;
+  showModalAdmin.value = true;
 }
 </script>
 

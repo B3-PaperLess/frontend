@@ -35,12 +35,14 @@
       </text-field>
 
       <text-field label="mot de passe"
+                  type="password"
                   class="mt-2" v-model="newUser.password"
                   rules="required|min:4|oneUppercase|oneLowercase|oneNumber"
                   vid="newUserPassword">
       </text-field>
 
       <text-field label="confirmer mot de passe"
+                  type="password"
                   v-model="newUser.passwordAgain"
                   rules="confirmed:@newUserPassword"
                   vid="newUserPasswordAgain">

@@ -16,11 +16,11 @@
           <td v-if="actions.length > 0">
             <div class="flex gap-x-4 justify-center">
               <div v-if="actions.includes('delete')" class="cursor-pointer rounded-full hover:bg-black/10 p-1" @click="emits('delete', items[index].email)">
-                <trash-solid class="w-6"></trash-solid>
+                <trash-solid class="w-6 text-red-400"></trash-solid>
               </div>
 
               <div v-if="actions.includes('admin')" class="cursor-pointer rounded-full hover:bg-black/10 p-1" @click="emits('admin', items[index].email)">
-                <arrow-narrow-up-solid class="w-6"></arrow-narrow-up-solid>
+                <arrow-narrow-up-solid class="w-6 text-green-800"></arrow-narrow-up-solid>
               </div>
             </div>
           </td>

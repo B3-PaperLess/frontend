@@ -1,16 +1,16 @@
 <template>
-<div>
+<div class="flex flex-row justify-around">
   <template v-for="(item, index) in items">
-    <div class="flex flex-row ">
-      <div>
+    <div class="flex flex-row items-center ">
+      <div class="font-medium">
         {{items[index].label}}
       </div>
-      <div class="rounded-full bg-white w-3 h-3 flex items-center align-center p-[0.7%] border-[0.03em]"
+      <div class="rounded-full bg-white w-4 h-4 ml-2 flex items-center align-center p-[5%] border-[0.03em]"
            :style="{borderColor: select === items[index][key] ? colorSelected : '#AAAAAA'}"
            @click="select=items[index][key]"
       >
         <div v-if="select === items[index][key]"
-             class="rounded-full"
+             class="rounded-full h-full w-full"
              :style="{background:colorSelected}">
         </div>
       </div>
@@ -44,7 +44,7 @@ const props = defineProps({
 let select = ref(null)
 
 watch(select, () => {
-  emits('update:modelValue', select)
+  emits('update:modelValue', select.value)
 })
 </script>
 
