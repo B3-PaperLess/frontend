@@ -7,7 +7,7 @@
     <div class="mt-12 flex flex-row justify-center gap-x-12">
       <card-home class="rounded-3xl text-center mx-48">
         <template v-slot:content>
-          Découvrez Paperless, la solution idéale pour dématérialiser facilement vos factures et vous conformer aux nouvelles exigences gouvernementales.En tant que services de dématérialisation officiel,nous vous offrons la possibilité de transmettre vos factures électroniquement aux autorités gouvernementales ou à d'autres tier, tout en assurant une vérification minutieuse et une réponse rapide.
+          Découvrez Paperless, la solution idéale pour dématérialiser facilement vos factures et vous conformer aux nouvelles exigences gouvernementales. En tant que service de dématérialisation officiel, nous vous offrons la possibilité de transmettre vos factures électroniquement aux autorités gouvernementales ou à d'autres tier, tout en assurant une vérification minutieuse et une réponse rapide.
         </template>
       </card-home>
     </div>
@@ -33,7 +33,7 @@
         </template>
 
         <template v-slot:content>
-          Votre dois être vérifier par un administrateur, vous recevrez un mail lors de la validation de votre compte.
+          Votre compte dois être vérifié par un administrateur, vous recevrez un mail lors de la validation de votre compte.
         </template>
       </card-home>
       <card-home class="rounded-3xl text-center w-1/3 h-40 mx-2">

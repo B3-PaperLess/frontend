@@ -68,17 +68,17 @@ function updateUser() {
 function updatePassword() {
   axios.post('paperless/password-change', passwordUpdate.value).then(({data}) => {
     if (data.response) {
-      toast('Mot de passe modifier', {type: 'success'})
+      toast('Mot de passe modifié', {type: 'success'})
       passwordUpdate.value = {
         passwordCurrent: '',
         passwordNew: ''
       }
     }
     else {
-      toast('Une erreur est survenu', {type: 'error'})
+      toast('Une erreur est survenue', {type: 'error'})
     }
   }).catch((e) => {
-    toast('Une erreur est survenu', {type: 'error'})
+    toast('Une erreur est survenue', {type: 'error'})
   })
 }
 

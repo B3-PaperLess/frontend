@@ -8,7 +8,7 @@
     <card-home class="w-3/12 h-fit flex flex-col items-center rounded-xl shadow-xl py-4 px-12 pb-8">
       <template v-slot:title>
         <div class="text-center text-2xl font-medium mt-4">
-          Information Entreprise
+          Informations Entreprise
         </div>
       </template>
 
@@ -113,7 +113,7 @@ function getUsers() {
 function createUserEntreprise(newUser) {
 
   const user = useEntrepriseStore.dispatch('createUser', newUser).then(() => {
-    toast('Utilisateur inscript', {type: 'success'})
+    toast('Utilisateur inscrit', {type: 'success'})
     entreprise.value = useEntrepriseStore.getters.getEntreprise
   })
 
@@ -135,7 +135,7 @@ function adminUser(email) {
 
 function sendModifEntreprise() {
   useEntrepriseStore.dispatch('updateEntreprise', entreprise.value).then(() => {
-    toast('Les informations ont bien été modifier', {type: 'success'})
+    toast('Les informations ont bien été modifiées', {type: 'success'})
   })
 }
 </script>

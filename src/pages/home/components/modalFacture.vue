@@ -6,7 +6,7 @@
       </div>
 
       <div class="mt-4 text-gray-400">
-        Seul le format PDF est accepter pour le depot de votre facture
+        Seul le format PDF est accepté pour le depot de votre facture
       </div>
 
       <div class="mt-12">
@@ -84,7 +84,7 @@ function sendFiles() {
         }
       }).then(({data}) => {
         if (data.facture) {
-          toast('Facure déposer', {type: "success"})
+          toast('Facture déposée', {type: "success"})
         }
       emits('update:modelValue', false)
   }).catch(() => {

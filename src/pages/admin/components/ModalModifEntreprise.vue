@@ -2,12 +2,12 @@
 <modal-default v-model="show" @update:model-value="emits('update:modelValue', false)" classe="w-2/3">
   <div class="px-4 py-12 flex flex-col items-center">
     <div class="text-4xl px-32 text-center font-medium">
-      La modification des informations de l'entreprise entrainera une suspensions à l'acces au depot de facture
+      La modification des informations de l'entreprise entrainera une suspension à l'accès au depot de facture
     </div>
 
     <div class="mt-8 text-center px-48">
-      Le temps que nos équipe valide vos nouvelles informations, vous ainsi que vos collabrateur pourront toujours accèder
-      a l'applicaiton mais l'envoie de facture vous sera momentanement retirer
+      Le temps que nos équipes valident vos nouvelles informations, vous ainsi que vos collabrateurs pourront toujours accèder
+      à l'applicaiton mais l'envoi de factures vous sera momentanement retiré
     </div>
 
     <div class="mt-12 flex justify-around w-full">
